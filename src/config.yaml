@@ -1,0 +1,91 @@
+# Ultra-Advanced Q-Learning Tic-Tac-Toe AI Configuration
+# This file contains all key parameters for reproducibility and easy experimentation
+
+# Hardware Configuration
+hardware:
+  use_parallel: true
+  max_workers: null  # null = auto-detect CPU count
+  device: "cpu"  # future: "cuda" for GPU support
+
+# Reproducibility
+reproducibility:
+  seed: 42
+  deterministic: true
+
+# Training Configuration
+training:
+  episodes: 50000
+  save_interval: 5000
+  stats_interval: 1000
+  early_stopping: true
+  convergence_threshold: 0.02
+
+# Q-Learning Hyperparameters
+hyperparameters:
+  alpha_start: 0.1
+  alpha_end: 0.01
+  gamma: 0.99
+  epsilon_start: 1.0
+  epsilon_end: 0.001
+  epsilon_decay_steps: 200000
+
+# Advanced Learning Features
+learning_features:
+  use_double_q: true
+  use_dyna_q: true
+  experience_replay_size: 20000
+  prioritized_replay: true
+
+# MCTS Parameters
+mcts:
+  enabled: true
+  iterations: 100
+  exploration_constant: 1.4
+  max_depth: 10
+  fast_mode_iterations: 50  # for --fast mode
+  full_mode_iterations: 200  # for --full mode
+
+# File Paths
+paths:
+  q_table_file: "q_table.json"
+  analytics_file: "training_analytics.json"
+  logs_dir: "logs"
+  plots_dir: "plots"
+  checkpoints_dir: "checkpoints"
+
+# Evaluation Configuration
+evaluation:
+  vs_random_games: 1000
+  vs_minimax_games: 100
+  tournament_rounds: 10
+
+# Logging Configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  log_training_curves: true
+  log_td_error: true
+  log_epsilon_decay: true
+  generate_plots: true
+
+# Performance Modes
+modes:
+  fast:
+    episodes: 10000
+    mcts_iterations: 50
+    save_interval: 2000
+  full:
+    episodes: 100000
+    mcts_iterations: 200
+    save_interval: 10000
+  debug:
+    episodes: 1000
+    mcts_iterations: 10
+    save_interval: 500
+    use_parallel: false
+
+# Baseline Agents
+baseline_agents:
+  random: true
+  heuristic: true
+  minimax: true
+  human: true
