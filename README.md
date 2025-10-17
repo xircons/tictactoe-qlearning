@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="frontend/public/img/logo_png.png" alt="Tic-Tac-Toe Q-Learning Logo" />
+</div>
+
 ## Tic-Tac-Toe Q-Learning AI System
 
 > This project transforms a simple 3×3 grid into a sophisticated artificial intelligence demonstration that showcases the evolution from basic games to advanced machine learning systems. At its core lies an Ultra-Advanced Q-Learning agent employing cutting-edge techniques including double Q-learning for stability, Dyna-Q for simulated experience learning, and experience replay with prioritized sampling. The system transcends traditional trial-and-error learning by incorporating tactical intelligence with immediate win/block detection, strategic position preferences, and MCTS-style evaluation for complex endgame positions.
