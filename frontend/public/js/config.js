@@ -4,7 +4,7 @@ const API_CONFIG = {
     PRODUCTION_URL: 'https://tictactoe-qlearning.onrender.com',
     
     // Local development URL
-    LOCAL_URL: 'http://localhost:5000',
+    LOCAL_URL: 'http://localhost:5001',
     
     // Auto-detect environment
     getBaseUrl() {

@@ -166,4 +166,5 @@ if __name__ == '__main__':
     print("  POST /api/move   - Get AI move")
     print("  POST /api/validate - Validate board state")
     
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    port = int(os.environ.get('PORT', 5001))
+    app.run(debug=True, host='0.0.0.0', port=port)
