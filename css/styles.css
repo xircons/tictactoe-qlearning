@@ -586,8 +586,8 @@ body::before {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 99999;
     animation: modalFadeIn 0.4s ease;
 }
 
@@ -612,6 +612,11 @@ body::before {
 
 .win-modal.active {
     display: block;
+}
+
+.win-modal.active .win-modal-content {
+    opacity: 1 !important;
+    animation: modalPop 0.4s ease forwards;
 }
 
 @keyframes modalFadeIn {

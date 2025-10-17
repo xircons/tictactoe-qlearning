@@ -114,7 +114,7 @@ async function getAIMoveFromAPI() {
         }
         console.log('   Message:', data.message);
         
-        return data.move;
+        return data;
         
     } catch (error) {
         console.error('[API ERROR] Failed to connect to backend:', error);
@@ -192,6 +192,9 @@ function startGame() {
     labelO.textContent = 'AI';
     playerNamesDisplay.textContent = `${playerName} VS AI`;
     
+    // Hide any existing win modal
+    winModal.classList.remove('active');
+    
     nameEntryScreen.classList.add('hidden');
     gameScreen.classList.add('active');
     gameActive = true;
@@ -217,23 +220,37 @@ cells.forEach(cell => {
 function handleCellClick(e) {
     const index = e.target.dataset.index;
     
+    console.log('[PLAYER MOVE] Clicked cell:', index, 'gameActive:', gameActive, 'isPlayerTurn:', isPlayerTurn);
+    
     if (board[index] !== '' || !gameActive || !isPlayerTurn) return;
     
     makeMove(index, currentPlayer);
     
-    if (checkWin(currentPlayer)) {
+    console.log('[PLAYER MOVE] After move, board:', board);
+    console.log('[PLAYER MOVE] Checking if player won...');
+    
+    const playerWon = checkWin(currentPlayer);
+    const boardFull = board.every(cell => cell !== '');
+    
+    console.log('[PLAYER MOVE] Player won:', playerWon);
+    console.log('[PLAYER MOVE] Board full:', boardFull);
+    
+    if (playerWon) {
+        console.log('[PLAYER MOVE] Player wins! Showing modal...');
         gameActive = false;
         scores[currentPlayer]++;
         updateScores();
         showWinModal(`${playerNames[currentPlayer]} WINS!`);
         showSlideMessage(`${playerNames[currentPlayer]} WINS!`);
-    } else if (board.every(cell => cell !== '')) {
+    } else if (boardFull) {
+        console.log('[PLAYER MOVE] Draw game! Showing modal...');
         gameActive = false;
         scores.draw++;
         updateScores();
         showWinModal('DRAW GAME!');
         showSlideMessage('DRAW GAME!');
     } else {
+        console.log('[PLAYER MOVE] Game continues, AI turn...');
         // Switch to AI turn
         isPlayerTurn = false;
         currentPlayer = 'O';
@@ -269,10 +286,19 @@ async function makeAIMove() {
     if (availableMoves.length === 0) return;
     
     let aiMove;
+    let gameOver = false;
+    let winner = null;
     
     // Try to get move from API first
     if (apiAvailable) {
-        aiMove = await getAIMoveFromAPI();
+        const apiResult = await getAIMoveFromAPI();
+        if (apiResult && typeof apiResult === 'object') {
+            aiMove = apiResult.move;
+            gameOver = apiResult.game_over;
+            winner = apiResult.winner;
+        } else {
+            aiMove = apiResult;
+        }
     }
     
     // Fallback to random move if API fails or is unavailable
@@ -283,24 +309,63 @@ async function makeAIMove() {
     // Make the move
     makeMove(aiMove, 'O');
     
-    if (checkWin('O')) {
+    console.log('[AI MOVE] After AI move, board:', board);
+    console.log('[AI MOVE] API gameOver:', gameOver, 'winner:', winner);
+    
+    // Check game state - use API result if available, otherwise use frontend check
+    if (gameOver && winner !== null) {
+        console.log('[AI MOVE] Using API game state');
         gameActive = false;
-        scores.O++;
-        updateScores();
-        showWinModal(`${playerNames.O} WINS!`);
-        showSlideMessage(`${playerNames.O} WINS!`);
-    } else if (board.every(cell => cell !== '')) {
-        gameActive = false;
-        scores.draw++;
-        updateScores();
-        showWinModal('DRAW GAME!');
-        showSlideMessage('DRAW GAME!');
+        if (winner === -1) {
+            // AI wins
+            console.log('[AI MOVE] AI wins! Showing modal...');
+            scores.O++;
+            updateScores();
+            showWinModal(`${playerNames.O} WINS!`);
+            showSlideMessage(`${playerNames.O} WINS!`);
+        } else if (winner === 1) {
+            // Player wins
+            console.log('[AI MOVE] Player wins! Showing modal...');
+            scores.X++;
+            updateScores();
+            showWinModal(`${playerNames.X} WINS!`);
+            showSlideMessage(`${playerNames.X} WINS!`);
+        } else {
+            // Draw
+            console.log('[AI MOVE] Draw game! Showing modal...');
+            scores.draw++;
+            updateScores();
+            showWinModal('DRAW GAME!');
+            showSlideMessage('DRAW GAME!');
+        }
     } else {
-        // Switch back to player turn
-        isPlayerTurn = true;
-        currentPlayer = 'X';
-        // status.textContent = `${playerNames[currentPlayer]}'S TURN`;
-        showSlideMessage(`${playerNames[currentPlayer]}'S TURN`, 2000);
+        console.log('[AI MOVE] Using frontend game state check');
+        const aiWon = checkWin('O');
+        const boardFull = board.every(cell => cell !== '');
+        console.log('[AI MOVE] AI won:', aiWon, 'Board full:', boardFull);
+        
+        if (aiWon) {
+            console.log('[AI MOVE] AI wins! Showing modal...');
+            gameActive = false;
+            scores.O++;
+            updateScores();
+            showWinModal(`${playerNames.O} WINS!`);
+            showSlideMessage(`${playerNames.O} WINS!`);
+        } else if (boardFull) {
+            console.log('[AI MOVE] Draw game! Showing modal...');
+            gameActive = false;
+            scores.draw++;
+            updateScores();
+            showWinModal('DRAW GAME!');
+            showSlideMessage('DRAW GAME!');
+        } else {
+            console.log('[AI MOVE] Game continues, player turn...');
+            // Switch back to player turn
+            isPlayerTurn = true;
+            currentPlayer = 'X';
+            // status.textContent = `${playerNames[currentPlayer]}'S TURN`;
+            showSlideMessage(`${playerNames[currentPlayer]}'S TURN`, 2000);
+        }
     }
 }
 
@@ -311,22 +376,40 @@ function checkWin(player) {
 }
 
 function showWinModal(message) {
+    console.log('[WIN MODAL] ==== SHOWING WIN MODAL ====');
+    console.log('[WIN MODAL] Message:', message);
+    console.log('[WIN MODAL] gameActive:', gameActive);
+    console.log('[WIN MODAL] Current board:', board);
+    
     winMessage.textContent = message;
     winModal.classList.add('active');
+    
+    console.log('[WIN MODAL] Modal class list:', winModal.classList.toString());
+    console.log('[WIN MODAL] Modal display style:', window.getComputedStyle(winModal).display);
     // status.textContent = message;
 }
 
 function resetGame() {
+    console.log('[RESET GAME] Resetting game state...');
+    console.log('[RESET GAME] gameActive before reset:', gameActive);
+    
     board = ['', '', '', '', '', '', '', '', ''];
     currentPlayer = 'X';
     gameActive = true;
     isPlayerTurn = true;
-    // status.textContent = `${playerNames[currentPlayer]}'S TURN`;
+    
+    console.log('[RESET GAME] Hiding modal...');
     winModal.classList.remove('active');
+    console.log('[RESET GAME] Modal classes after remove:', winModal.classList.toString());
+    
     cells.forEach(cell => {
         cell.innerHTML = '';
         cell.classList.remove('taken');
     });
+    
+    console.log('[RESET GAME] gameActive after reset:', gameActive);
+    console.log('[RESET GAME] Reset complete!');
+    // status.textContent = `${playerNames[currentPlayer]}'S TURN`;
     showSlideMessage('GAME RESET!');
 }
 
@@ -344,6 +427,7 @@ function resetToNameEntry() {
     nameEntryScreen.classList.remove('hidden');
     playerXNameInput.value = '';
     winModal.classList.remove('active');
+    showSlideMessage('FRESH START!');
 }
 
 playAgainBtn.addEventListener('click', resetGame);
