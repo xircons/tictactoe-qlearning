@@ -15,7 +15,19 @@ from agents.perfect_agent import PerfectMinimaxAgent
 from core.tictactoe import TicTacToe
 
 app = Flask(__name__)
-CORS(app, origins=["https://*.github.io", "http://localhost:*", "https://localhost:*"])
+# Configure CORS to allow requests from GitHub Pages and localhost
+CORS(app, resources={
+    r"/api/*": {
+        "origins": [
+            "https://xircons.github.io",
+            "http://localhost:*",
+            "http://127.0.0.1:*"
+        ],
+        "methods": ["GET", "POST", "OPTIONS"],
+        "allow_headers": ["Content-Type"],
+        "supports_credentials": False
+    }
+})
 
 # Initialize the AI agent
 ai_agent = PerfectMinimaxAgent()
