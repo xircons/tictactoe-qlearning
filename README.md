@@ -1,218 +1,151 @@
-# Tic-Tac-Toe with Perfect AI
+## Tic-Tac-Toe Q-Learning AI System
 
-A modern, pixel-art styled Tic-Tac-Toe game featuring an unbeatable AI opponent powered by the Perfect Minimax algorithm. The game is deployed on GitHub Pages with a separate Python API backend.
+> This project transforms a simple 3×3 grid into a sophisticated artificial intelligence demonstration that showcases the evolution from basic games to advanced machine learning systems. At its core lies an Ultra-Advanced Q-Learning agent employing cutting-edge techniques including double Q-learning for stability, Dyna-Q for simulated experience learning, and experience replay with prioritized sampling. The system transcends traditional trial-and-error learning by incorporating tactical intelligence with immediate win/block detection, strategic position preferences, and MCTS-style evaluation for complex endgame positions.
+The brilliance of this implementation lies in its symmetry reduction technique, which recognizes that rotated boards represent identical strategic situations. By canonicalizing game states, the AI learns more efficiently, transforming thousands of possibilities into meaningful patterns that reflect a deeper understanding of how intelligence emerges from structured learning processes. This optimization demonstrates how simple rules can generate sophisticated behaviors through systematic exploration and adaptation.
+Beyond pure AI research, the project evolves into a complete production-ready ecosystem featuring a Flask backend that serves the trained model via RESTful APIs, a modern web frontend providing engaging gameplay experiences, and intelligent fallback systems that ensure continuous operation. When the Q-learning API becomes unavailable, the system seamlessly switches to perfect minimax algorithms, showcasing robust system design principles.
+The project exemplifies how derived values flow through complex interconnected systems, where each component—from the game engine's state representation to the Q-learning agent's strategic preferences emerging from thousands of self-play games—contributes to a greater whole. The configurable training system supports multiple modes ranging from quick 10,000-episode runs to intensive 100,000-episode sessions, complete with comprehensive analytics, real-time performance tracking, and convergence analysis that transforms raw training data into meaningful insights about AI learning processes.
+This multi-layered architecture demonstrates contemporary AI development practices, showcasing everything from low-level game mechanics to high-level user interfaces. The project proves that even elementary games can illuminate the deepest principles of artificial intelligence, serving as both an educational tool and practical demonstration of how modern machine learning techniques can be applied to create intelligent systems that are theoretically sound and practically useful in real-world applications.
 
-**[>> Play the Game Now <<](https://xircons.github.io/tictactoe-qlearning/index.html)**
+## Demo
 
-## Features
+<div align="center">
+  <img src="tictactoe-qlearning.gif" alt="Tic-Tac-Toe Q-Learning AI Demo" />
+</div>
 
-- **8-bit Pixel Art Design**: Retro gaming aesthetic with smooth animations
-- **Perfect Minimax AI**: Unbeatable opponent that plays optimally
-- **Responsive Design**: Works on desktop and mobile devices
-- **Real-time API Integration**: AI moves powered by Python backend
-- **Fallback System**: Graceful degradation to random AI if API unavailable
-- **Score Tracking**: Persistent score tracking across games
-- **Modern UI/UX**: Smooth transitions and engaging visual feedback
-
-## Project Structure
+## Folder Structure
 
 ```
 tictactoe-qlearning/
-├── frontend/                 # Frontend application
-│   └── public/              # Static files for GitHub Pages
-│       ├── index.html      # Main HTML file
-│       ├── css/            # Stylesheets
-│       └── js/             # JavaScript files
-├── backend/                 # Python API backend
-│   ├── main.py             # Flask API server
-│   ├── agents/             # AI agent implementations
-│   ├── core/               # Game engine
-│   └── requirements.txt    # Python dependencies
-├── src/                    # Original Python source code
-├── .github/workflows/      # GitHub Actions for deployment
-└── deployment/             # Backend deployment configs
+├── src/                           # Core AI implementation
+│   ├── agents/                    # AI agents
+│   │   ├── qlearning_agent.py     # Ultra-Advanced Q-Learning agent
+│   │   ├── perfect_agent.py       # Perfect Minimax agent
+│   │   └── baseline_agents.py     # Random & heuristic agents
+│   ├── core/                      # Game engine
+│   │   └── tictactoe.py          # Tic-tac-toe game logic
+│   ├── training/                  # Training system
+│   │   └── train.py              # Self-play training loop
+│   └── config.yaml               # Training configuration
+├── backend/                       # Flask API server
+│   ├── agents/
+│   │   └── perfect_agent.py      # API agent implementation
+│   ├── core/
+│   │   └── tictactoe.py         # Game engine for API
+│   └── main.py                   # Flask server
+├── frontend/                      # Web interface
+│   └── public/
+│       ├── index.html            # Main HTML file
+│       ├── css/
+│       │   └── styles.css        # Styling
+│       └── js/
+│           ├── config.js         # API configuration
+│           └── game.js           # Game logic
+├── requirements.txt              # Python dependencies
+├── config.env                    # Environment variables
+└── README.md                     # This file
 ```
 
-## Live Demo
+## Frontend Setup
 
-- **Frontend**: [Play Game on GitHub Pages](https://xircons.github.io/tictactoe-qlearning/index.html)
-- **API**: [Backend API](https://tictactoe-qlearning.onrender.com)
+### Prerequisites
+- Modern web browser (Chrome, Firefox, Safari, Edge)
+- Local web server (optional, for development)
 
-## Setup Instructions
-
-### Frontend (GitHub Pages)
-
-The frontend is automatically deployed to GitHub Pages when you push to the main branch.
-
-1. **Enable GitHub Pages**:
-   - Go to repository Settings → Pages
-   - Source: GitHub Actions
-   - The workflow will automatically deploy from `frontend/public`
-
-2. **Update API URL**:
-   - Edit `frontend/public/js/config.js`
-   - Update `PRODUCTION_URL` with your deployed backend URL
-
-### Backend API
-
-#### Local Development
-
-1. **Install dependencies**:
+### Quick Start
+1. **Clone the repository**
    ```bash
-   cd backend
+   git clone <repository-url>
+   cd tictactoe-qlearning
+   ```
+
+2. **Open the game**
+   - **Option 1**: Open `frontend/public/index.html` directly in your browser
+   - **Option 2**: Use a local server for better development experience:
+     ```bash
+     # Using Python
+     cd frontend/public
+     python -m http.server 8000
+     # Then visit http://localhost:8000
+     
+     # Using Node.js (if you have it)
+     npx serve frontend/public
+     ```
+
+3. **Start playing!**
+   - Enter your name
+   - Play against the AI
+   - The frontend will automatically connect to the backend API if available
+
+### Features
+- **Responsive design** with modern UI/UX
+- **Real-time gameplay** with AI opponent
+- **Score tracking** and game statistics
+- **Automatic fallback** to random AI if backend is unavailable
+- **Cross-platform compatibility** (works on GitHub Pages and locally)
+
+## Backend Setup
+
+### Prerequisites
+- Python 3.8 or higher
+- pip (Python package manager)
+
+### Installation & Setup
+
+1. **Install dependencies**
+   ```bash
    pip install -r requirements.txt
    ```
 
-2. **Run the server**:
+2. **Configure environment** (optional)
    ```bash
-   python main.py
+   # Edit config.env if needed
+   # Default settings work out of the box
    ```
 
-3. **Test the API**:
+3. **Start the Flask server**
    ```bash
-   curl http://localhost:5000/api/health
+   # From the project root
+   python backend/main.py
+   
+   # Or specify a custom port
+   PORT=5001 python backend/main.py
    ```
 
-#### Production Deployment
-
-Choose one of the following platforms:
-
-##### Option 1: Render.com (Recommended)
-
-1. Connect your GitHub repository to Render
-2. Create a new Web Service
-3. Use the configuration from `deployment/render.yaml`
-4. Set environment variables as needed
-
-##### Option 2: Railway
-
-1. Connect your GitHub repository to Railway
-2. Railway will auto-detect Python and install dependencies
-3. Set environment variables in Railway dashboard
-
-##### Option 3: Heroku
-
-1. Install Heroku CLI
-2. Create a new app:
+4. **Verify the API is running**
    ```bash
-   heroku create your-app-name
-   ```
-3. Deploy:
-   ```bash
-   git push heroku main
+   # Test the health endpoint
+   curl http://localhost:5001/api/health
+   
+   # Expected response:
+   # {"status": "healthy", "message": "Tic-Tac-Toe API is running", "agent": "Perfect Minimax AI"}
    ```
 
-##### Option 4: DigitalOcean App Platform
+### Training the Q-Learning Agent
 
-1. Connect your GitHub repository
-2. Set build command: `pip install -r backend/requirements.txt`
-3. Set run command: `cd backend && gunicorn main:app`
+1. **Configure training parameters**
+   ```bash
+   # Edit src/config.yaml for custom settings
+   # Default: 50,000 episodes with parallel processing
+   ```
 
-## How to Play
+2. **Start training**
+   ```bash
+   python src/training/train.py
+   ```
 
-1. **Start the Game**: Enter your name and click "START GAME"
-2. **Make Moves**: Click on empty cells to place your X
-3. **AI Response**: The Perfect Minimax AI will respond with optimal moves
-4. **Win Conditions**: Get three in a row (horizontal, vertical, or diagonal)
-5. **Game Over**: Win, lose, or draw - then play again!
+3. **Monitor progress**
+   - Real-time statistics every 1,000 episodes
+   - Automatic Q-table saving every 5,000 episodes
+   - Performance plots generated automatically
 
-## 🤖 AI Agent Details
-
-The Perfect Minimax agent uses:
-- **Alpha-Beta Pruning**: Optimized search algorithm
-- **Tactical Intelligence**: Immediate win/block detection
-- **Optimal Play**: Cannot be beaten (only drawn or wins)
-- **Strategic Depth**: Evaluates all possible game states
-
-## API Endpoints
-
-### Health Check
-```
-GET /api/health
-```
-
-### Get AI Move
-```
-POST /api/move
-Content-Type: application/json
-
-{
-    "board": [0, 1, -1, 0, 0, 0, 0, 0, 0],
-    "player": -1
-}
-```
-
-### Validate Board
-```
-POST /api/validate
-Content-Type: application/json
+4. **Use trained model**
+   - Trained Q-table saved as `q_table.json`
+   - Can be loaded by the Q-learning agent for gameplay
 
 ## License
 
-Creative Commons Attribution-NonCommercial 4.0 International License
+This project is licensed under the **Creative Commons Attribution-NonCommercial 4.0 International License**.
 
 Copyright (c) 2025 pppwtk
 
-This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License.
-To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/4.0/
-
-## Challenge
-
-Think you can win? **You can't.** But try anyway:
-
-```bash
-python3 scripts/demo/play.py
-```
-
-## 🎨 Customization
-
-### Styling
-- Modify `frontend/public/css/styles.css` for visual changes
-- CSS variables are defined in `:root` for easy theming
-
-### AI Behavior
-- Edit `backend/agents/perfect_agent.py` for AI modifications
-- The agent can be configured for different difficulty levels
-
-### API Configuration
-- Update `frontend/public/js/config.js` for API endpoints
-- Modify CORS settings in `backend/main.py` for domain restrictions
-
-## 🐛 Troubleshooting
-
-### Common Issues
-
-1. **CORS Errors**: Ensure your frontend domain is included in backend CORS origins
-2. **API Not Available**: Check backend deployment and update config.js URL
-3. **GitHub Pages Not Updating**: Verify GitHub Actions workflow is running
-4. **Local Development**: Ensure backend is running on localhost:5000
-
-### Debug Mode
-
-Enable debug mode in the browser console to see API calls and responses.
-
-## Development
-
-### Adding Features
-
-1. **Frontend**: Modify files in `frontend/public/`
-2. **Backend**: Update `backend/main.py` and related files
-3. **Testing**: Test locally before deploying
-
-### Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🙏 Acknowledgments
-
-- Perfect Minimax algorithm implementation
-- 8-bit pixel art styling inspiration
-- Flask and modern web technologies
+For full license details, see [LICENSE](LICENSE) file.
