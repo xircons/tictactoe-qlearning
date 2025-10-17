@@ -27,7 +27,6 @@ from agents.qlearning_agent import UltraAdvancedQLearningAgent
 
 
 class UltraAdvancedSelfPlayTrainer:
-    """Ultra-advanced trainer with maximum performance optimizations."""
     
     def __init__(self, 
                  episodes: int = 50000,
@@ -38,6 +37,7 @@ class UltraAdvancedSelfPlayTrainer:
                  max_workers: int = None,
                  early_stopping: bool = True,
                  convergence_threshold: float = 0.02):
+
         self.episodes = episodes
         self.save_interval = save_interval
         self.stats_interval = stats_interval

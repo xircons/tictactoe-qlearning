@@ -1,6 +1,10 @@
 import time
-from tictactoe import TicTacToe
-from qlearning_agent import UltraAdvancedQLearningAgent
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(__file__), '../../src'))
+
+from core.tictactoe import TicTacToe
+from agents.qlearning_agent import UltraAdvancedQLearningAgent
 
 
 def demonstrate_ai_vs_ai(num_games=3):
@@ -8,7 +12,10 @@ def demonstrate_ai_vs_ai(num_games=3):
     
     # Load trained agent
     agent = UltraAdvancedQLearningAgent()
-    agent.load_q_table("q_table.json")
+    try:
+        agent.load_q_table("reports/q_table.json")
+    except:
+        print("Warning: Could not load Q-table, using untrained agent")
     
     print("AI vs AI Tic-Tac-Toe Demonstration")
     print("=" * 50)

@@ -7,24 +7,33 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '../../src'))
 
 from core.tictactoe import TicTacToe
 from agents.qlearning_agent import UltraAdvancedQLearningAgent, RandomAgent
+from agents.perfect_agent import UnbeatableAgent, PerfectMinimaxAgent, HybridQLearningMinimaxAgent
 
 
 class GameEvaluator:
     """Evaluator for testing trained Q-learning agent."""
     
-    def __init__(self, q_table_file: str = "q_table.json"):
+    def __init__(self, q_table_file: str = "q_table.json", use_perfect_agent: bool = True):
         """
         Initialize evaluator.
         
         Args:
             q_table_file: Path to saved Q-table
+            use_perfect_agent: Whether to use the perfect unbeatable agent
         """
         self.q_table_file = q_table_file
-        self.trained_agent = UltraAdvancedQLearningAgent()
-        self.random_agent = RandomAgent()
+        self.use_perfect_agent = use_perfect_agent
         
-        # Load trained Q-table
-        self.trained_agent.load_q_table(q_table_file)
+        if use_perfect_agent:
+            # Use the unbeatable perfect agent
+            self.trained_agent = UnbeatableAgent()
+        else:
+            # Use the Q-learning agent
+            self.trained_agent = UltraAdvancedQLearningAgent()
+            self.trained_agent.load_q_table(q_table_file)
+            print("Using Q-Learning Agent")
+        
+        self.random_agent = RandomAgent()
         
     def play_game(self, 
                   agent1, 
@@ -159,18 +168,49 @@ class GameEvaluator:
         
         return results
     
-    def play_human_vs_ai(self):
-        """Interactive human vs AI game."""
+    def play_human_vs_ai(self, ai_difficulty: str = "unbeatable"):
+        """
+        Interactive human vs AI game.
+        
+        Args:
+            ai_difficulty: 'unbeatable' for perfect play, 'trained' for Q-learning
+        """
         print("Human vs AI Tic-Tac-Toe")
-        print("=" * 30)
-        print("You are X, AI is O")
+        print("=" * 50)
+        
+        # Choose AI agent based on difficulty
+        if ai_difficulty == "unbeatable":
+            ai_agent = UnbeatableAgent()
+            print("Difficulty: LITERALLY UNBEATABLE (I mean it... like, mathematically impossible to win)")
+            print("This AI has a PhD in being annoying and never loses. NEVER.")
+            print("Your best shot? A draw. That's it. That's your peak. Good luck lol")
+        else:
+            ai_agent = self.trained_agent
+            print("Difficulty: Trained Q-Learning AI")
+        
+        print()
+        print("You are X (Player 1), AI is O (Player -1)")
         print("Enter position (0-8) or 'quit' to exit")
         print()
+        print("Board positions:")
+        print("0 | 1 | 2")
+        print("---------")
+        print("3 | 4 | 5")
+        print("---------")
+        print("6 | 7 | 8")
+        print()
+        
+        wins = 0
+        losses = 0
+        draws = 0
         
         while True:
             game = TicTacToe()
             
-            print("New game! You go first kub.")
+            print(f"\n{'='*50}")
+            print(f"New game! Score - You: {wins} | AI: {losses} | Draws: {draws}")
+            print(f"{'='*50}")
+            print("You go first! (I'm feeling generous today... you'll need it)")
             game.display_board()
             print()
             
@@ -179,48 +219,72 @@ class GameEvaluator:
                     while True:
                         try:
                             user_input = input("Your move (0-8): ").strip()
-                            if user_input.lower() == 'quit':
-                                print("Thanks for playing kub!")
+                            if user_input.lower() in ['quit', 'q', 'exit']:
+                                print("\n" + "="*50)
+                                print(f"Final Score - You: {wins} | AI: {losses} | Draws: {draws}")
+                                print("Alright, alright... Thanks for playing! You weren't THAT bad")
+                                print("="*50)
                                 return
                             
                             action = int(user_input)
                             if action in game.get_available_actions():
                                 break
                             else:
-                                print("Invalid move! Try again.")
+                                print("Bruh... that spot is taken! Are you even looking at the board?")
                         except ValueError:
-                            print("Please enter a number 0-8 or 'quit'.")
+                                print("Umm... I need a NUMBER between 0-8, not whatever that was")
                     
                     game.make_move(action)
-                    print(f"You play at {action}")
+                    print(f"Okay okay, you played at {action}... let's see if that was smart")
                     game.display_board()
                     print()
                     
                 else:  # AI's turn
-                    print("AI is thinking...")
-                    action = self.trained_agent.choose_action(game)
+                    print("AI is thinking... (not that I need to, but I'll pretend for your sake)")
+                    time.sleep(0.5)  # Dramatic pause
+                    action = ai_agent.choose_action(game)
                     game.make_move(action)
-                    print(f"AI plays at {action}")
+                    print(f"Hehe, I'm playing at {action}... *chef's kiss*")
                     game.display_board()
                     print()
             
             # Game finished
+            print("="*50)
             if game.winner == 1:
-                print("You win! Congratulations!")
+                print("WAIT WHAT?! YOU WON?!")
+                print("Okay okay fine... You're actually kinda good... Maybe just lucky?")
+                print("*grudgingly respects you*")
+                wins += 1
             elif game.winner == -1:
-                print("AI wins! มึงอะกาก!")
+                print("HAHA! I WIN AGAIN!")
+                print("Better luck next time, champ... or not")
+                print("(Did you really think you could beat me? LOL)")
+                losses += 1
             else:
-                print("It's a draw! GG kub!")
+                print("It's a DRAW! Not bad, not bad...")
+                print("You didn't lose! That's basically a win in your books, right?")
+                draws += 1
+            print("="*50)
             
             print()
             play_again = input("Play again? (y/n): ").strip().lower()
             if play_again not in ['y', 'yes']:
-                print("Thanks for playing kub!")
+                print("\n" + "="*50)
+                print(f"Final Score - You: {wins} | AI: {losses} | Draws: {draws}")
+                if losses == 0 and wins > 0:
+                    print("WOAH! PERFECT SCORE! You never lost!")
+                    print("I'm actually impressed... Are you sure you're human?")
+                elif draws > losses:
+                    print("Not gonna lie, you held your own pretty well!")
+                    print("I almost broke a sweat... almost")
+                print("Thanks for playing! Come back when you're ready for another beatdown... I mean, game!")
+                print("="*50)
                 break
     
     def analyze_agent_strategy(self, num_games: int = 100):
         """Analyze the trained agent's strategy by examining move patterns."""
-        print("Analyzing Agent Strategy")
+        print("Let me flex my brain real quick...")
+        print("Analyzing Agent Strategy (aka showing off)")
         print("=" * 30)
         
         # Play games and collect move data
@@ -280,41 +344,38 @@ class GameEvaluator:
 
 def main():
     """Main evaluation function."""
-    evaluator = GameEvaluator("q_table.json")
+    print("=" * 50)
     
-    print("Q-Learning Tic-Tac-Toe AI Evaluation")
-    print("=" * 40)
+    evaluator = GameEvaluator("q_table.json", use_perfect_agent=True)
     
     while True:
-        print("\nChoose an option:")
-        print("1. Evaluate vs Random Agent")
-        print("2. Play Human vs AI")
-        print("3. Analyze Agent Strategy")
-        print("4. Demonstrate AI vs AI")
-        print("5. Exit")
+        print("\n" + "=" * 50)
+        print("Choose an option:")
+        print("=" * 50)
+        print("1. Play vs UNBEATABLE AI")
+        print("2. Watch AI vs AI Demo")
+        print("3. Exit")
+        print("=" * 50)
         
-        choice = input("\nEnter choice (1-5): ").strip()
+        choice = input("\nEnter choice (1-3): ").strip()
         
         if choice == '1':
-            num_games = input("Number of games (default 1000): ").strip()
-            num_games = int(num_games) if num_games else 1000
-            evaluator.evaluate_vs_random(num_games)
+            print("\nPREPARE FOR THE ULTIMATE CHALLENGE!")
+            print("I hope you ate your Wheaties this morning...")
+            evaluator.play_human_vs_ai(ai_difficulty="unbeatable")
             
         elif choice == '2':
-            evaluator.play_human_vs_ai()
-            
-        elif choice == '3':
-            evaluator.analyze_agent_strategy()
-            
-        elif choice == '4':
             evaluator.demonstrate_ai_games()
             
-        elif choice == '5':
-            print("Thank you for playing kub!")
+        elif choice == '3':
+            print("\n" + "=" * 50)
+            print("Aww, leaving so soon? Fine! Thanks for playing!")
+            print("Don't be a stranger now... unless you're scared")
+            print("=" * 50)
             break
             
         else:
-            print("Invalid choice. Please try again.")
+            print("Uh... that's not even an option! Can you read? Try again!")
 
 
 if __name__ == "__main__":
