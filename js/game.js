@@ -1,3 +1,202 @@
+// Create pixel grid background with sky gradient
+function createPixelGrid() {
+    const pixelGrid = document.getElementById('pixel-grid');
+    if (!pixelGrid) return;
+    
+    // Detect if mobile device
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                     window.innerWidth <= 768 || 
+                     ('ontouchstart' in window);
+    
+    // Set grid size based on device type
+    const gridSize = isMobile ? 16 : 32;
+    const totalPixels = gridSize * gridSize;
+    
+    // Update CSS grid columns/rows
+    pixelGrid.style.gridTemplateColumns = `repeat(${gridSize}, 1fr)`;
+    pixelGrid.style.gridTemplateRows = `repeat(${gridSize}, 1fr)`;
+    
+    // Color palette for sky gradient (lightest to darkest)
+    const colors = [
+        '#20303f', '#202b38', '#1d2835', '#1a2530', 
+        '#17202a', '#141d26', '#10171f', '#0d1419', '#0a1015'
+    ];
+    
+    // Helper function to interpolate between two hex colors
+    function interpolateColor(color1, color2, factor) {
+        const c1 = parseInt(color1.slice(1), 16);
+        const c2 = parseInt(color2.slice(1), 16);
+        
+        const r1 = (c1 >> 16) & 0xff;
+        const g1 = (c1 >> 8) & 0xff;
+        const b1 = c1 & 0xff;
+        
+        const r2 = (c2 >> 16) & 0xff;
+        const g2 = (c2 >> 8) & 0xff;
+        const b2 = c2 & 0xff;
+        
+        const r = Math.round(r1 + (r2 - r1) * factor);
+        const g = Math.round(g1 + (g2 - g1) * factor);
+        const b = Math.round(b1 + (b2 - b1) * factor);
+        
+        return '#' + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0');
+    }
+    
+    // Generate pixels based on grid size
+    const fragment = document.createDocumentFragment();
+    
+    for (let row = 0; row < gridSize; row++) {
+        for (let col = 0; col < gridSize; col++) {
+            const pixel = document.createElement('div');
+            pixel.className = 'pixel';
+            
+            // Calculate color based on row (vertical gradient)
+            const rowFactor = row / (gridSize - 1); // 0 to 1
+            
+            // Determine which color segment we're in
+            const colorIndex = Math.floor(rowFactor * (colors.length - 1));
+            const nextColorIndex = Math.min(colorIndex + 1, colors.length - 1);
+            const segmentFactor = (rowFactor * (colors.length - 1)) - colorIndex;
+            
+            // Interpolate between colors
+            let baseColor = interpolateColor(colors[colorIndex], colors[nextColorIndex], segmentFactor);
+            
+            // Add slight horizontal variation for natural look (±5% brightness)
+            const horizontalVariation = (col / (gridSize - 1)) * 0.1 - 0.05; // -0.05 to +0.05
+            const variation = 1 + horizontalVariation;
+            
+            // Apply variation to color
+            const colorInt = parseInt(baseColor.slice(1), 16);
+            const r = Math.min(255, Math.max(0, Math.round(((colorInt >> 16) & 0xff) * variation)));
+            const g = Math.min(255, Math.max(0, Math.round(((colorInt >> 8) & 0xff) * variation)));
+            const b = Math.min(255, Math.max(0, Math.round((colorInt & 0xff) * variation)));
+            
+            const finalColor = '#' + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0');
+            pixel.style.backgroundColor = finalColor;
+            
+            fragment.appendChild(pixel);
+        }
+    }
+    
+    pixelGrid.appendChild(fragment);
+    console.log(`[PIXEL GRID] Created ${totalPixels} pixels (${gridSize}×${gridSize}) with sky gradient`);
+}
+
+// Mobile detection and styling
+function detectMobile() {
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+                     window.innerWidth <= 768 || 
+                     ('ontouchstart' in window);
+    
+    if (isMobile) {
+        document.body.classList.add('mobile-device');
+        const phoneContainer = document.querySelector('.phone-container');
+        if (phoneContainer) {
+            phoneContainer.classList.add('mobile-style');
+            console.log('[MOBILE] Mobile styles applied! Phone container:', phoneContainer.className);
+            
+            // Create stars within phone-screen for mobile
+            createMobileStars();
+        }
+        console.log('[MOBILE] Mobile device detected - applying mobile styles');
+    } else {
+        console.log('[DESKTOP] Desktop device detected - using phone container');
+    }
+}
+
+// Create stars within phone-screen for mobile devices
+function createMobileStars() {
+    const phoneScreen = document.querySelector('.phone-screen');
+    if (phoneScreen) {
+        // Remove existing mobile stars if any
+        const existingStars = phoneScreen.querySelector('.mobile-stars');
+        if (existingStars) {
+            existingStars.remove();
+        }
+        
+        // Create mobile stars container
+        const mobileStarsContainer = document.createElement('div');
+        mobileStarsContainer.className = 'mobile-stars';
+        mobileStarsContainer.style.cssText = `
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        `;
+        
+        // Generate stars for mobile
+        for (let i = 0; i < 60; i++) {
+            const star = document.createElement('div');
+            star.className = 'mobile-star';
+            star.style.cssText = `
+                position: absolute;
+                width: 3px;
+                height: 3px;
+                background: white;
+                box-shadow: 0 0 0 1px white, 0 0 5px 1px rgba(255, 255, 255, 0.5);
+                animation: twinkle 3s infinite;
+                animation-delay: ${Math.random() * 3}s;
+                left: ${Math.random() * 100}%;
+                top: ${Math.random() * 100}%;
+            `;
+            mobileStarsContainer.appendChild(star);
+        }
+        
+        // Insert stars at the beginning of phone-screen
+        phoneScreen.insertBefore(mobileStarsContainer, phoneScreen.firstChild);
+        console.log('[MOBILE] Mobile stars created within phone-screen');
+    }
+}
+
+// Apply pixel grid and mobile detection on load
+document.addEventListener('DOMContentLoaded', () => {
+    createPixelGrid();
+    detectMobile();
+});
+
+// Mobile keyboard detection
+function handleMobileKeyboard() {
+    if (window.innerWidth <= 768) {
+        const initialHeight = window.innerHeight;
+        const welcomeTitle = document.querySelector('.welcome-title');
+        
+        function checkKeyboard() {
+            const currentHeight = window.innerHeight;
+            const heightDifference = initialHeight - currentHeight;
+            
+            // Detect keyboard early - when height reduced by more than 20px (0-10% of keyboard animation)
+            if (heightDifference > 20) {
+                if (welcomeTitle) {
+                    welcomeTitle.style.margin = '0px 0px 80px 0px';
+                    console.log('[MOBILE] Keyboard detected early - adjusting welcome title margin');
+                }
+            } else {
+                if (welcomeTitle) {
+                    welcomeTitle.style.margin = '60px 0px 40px 0px';
+                    console.log('[MOBILE] Keyboard hidden - restoring welcome title margin');
+                }
+            }
+        }
+        
+        // Check on resize (keyboard show/hide)
+        window.addEventListener('resize', checkKeyboard);
+        
+        // Check on focus/blur of input (keyboard show/hide)
+        const playerInput = document.getElementById('playerXName');
+        if (playerInput) {
+            playerInput.addEventListener('focus', checkKeyboard);
+            playerInput.addEventListener('blur', checkKeyboard);
+        }
+    }
+}
+
+// Apply keyboard detection on load
+document.addEventListener('DOMContentLoaded', handleMobileKeyboard);
+
 // Generate stars
 const starsContainer = document.getElementById('stars');
 for (let i = 0; i < 80; i++) {
@@ -427,7 +626,7 @@ function resetToNameEntry() {
     nameEntryScreen.classList.remove('hidden');
     playerXNameInput.value = '';
     winModal.classList.remove('active');
-    showSlideMessage('FRESH START!');
+    showSlideMessage('BACK TO MAIN!');
 }
 
 playAgainBtn.addEventListener('click', resetGame);
