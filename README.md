@@ -147,9 +147,21 @@ Content-Type: application/json
 POST /api/validate
 Content-Type: application/json
 
-{
-    "board": [0, 1, -1, 0, 0, 0, 0, 0, 0]
-}
+## License
+
+Creative Commons Attribution-NonCommercial 4.0 International License
+
+Copyright (c) 2025 pppwtk
+
+This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License.
+To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/4.0/
+
+## Challenge
+
+Think you can win? **You can't.** But try anyway:
+
+```bash
+python3 scripts/demo/play.py
 ```
 
 ## 🎨 Customization

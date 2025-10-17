@@ -2,8 +2,11 @@
 Perfect Tic-Tac-Toe Agent using Minimax with Alpha-Beta Pruning
 This agent plays perfectly and cannot be beaten (only drawn or wins)
 
-MIT License
+Creative Commons Attribution-NonCommercial 4.0 International License
 Copyright (c) 2025 pppwtk
+
+This work is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License.
+To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/4.0/
 """
 
 import sys
