@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe AI - Multiple Agents</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Tic-Tac-Toe AI</h1>
+        
+        <!-- Agent Selection -->
+        <div class="agent-selection">
+            <h3>Choose AI Agent:</h3>
+            <div class="agent-buttons">
+                <button id="perfectAgent" class="agent-btn active">Perfect Minimax</button>
+                <button id="qlearningAgent" class="agent-btn">Q-Learning</button>
+                <button id="hybridAgent" class="agent-btn">Hybrid</button>
+            </div>
+            <div id="agentStatus" class="agent-status"></div>
+        </div>
+
+        <!-- Game Board -->
+        <div class="game-container">
+            <div class="game-info">
+                <div id="currentAgent">Current Agent: Perfect Minimax</div>
+                <div id="gameStatus">Your turn!</div>
+            </div>
+            
+            <div class="board" id="board">
+                <div class="cell" data-index="0"></div>
+                <div class="cell" data-index="1"></div>
+                <div class="cell" data-index="2"></div>
+                <div class="cell" data-index="3"></div>
+                <div class="cell" data-index="4"></div>
+                <div class="cell" data-index="5"></div>
+                <div class="cell" data-index="6"></div>
+                <div class="cell" data-index="7"></div>
+                <div class="cell" data-index="8"></div>
+            </div>
+            
+            <div class="controls">
+                <button id="resetBtn">Reset Game</button>
+                <button id="newGameBtn">New Game</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>
