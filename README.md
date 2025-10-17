@@ -2,7 +2,7 @@
 
 A modern, pixel-art styled Tic-Tac-Toe game featuring an unbeatable AI opponent powered by the Perfect Minimax algorithm. The game is deployed on GitHub Pages with a separate Python API backend.
 
-## 🎮 Features
+## Features
 
 - **8-bit Pixel Art Design**: Retro gaming aesthetic with smooth animations
 - **Perfect Minimax AI**: Unbeatable opponent that plays optimally
@@ -12,7 +12,7 @@ A modern, pixel-art styled Tic-Tac-Toe game featuring an unbeatable AI opponent 
 - **Score Tracking**: Persistent score tracking across games
 - **Modern UI/UX**: Smooth transitions and engaging visual feedback
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 tictactoe-qlearning/
@@ -31,12 +31,12 @@ tictactoe-qlearning/
 └── deployment/             # Backend deployment configs
 ```
 
-## 🚀 Live Demo
+## Live Demo
 
 - **Frontend**: [GitHub Pages](https://your-username.github.io/tictactoe-qlearning)
 - **API**: [Backend API](https://your-backend-url.herokuapp.com) (update config.js with your URL)
 
-## 🛠️ Setup Instructions
+## Setup Instructions
 
 ### Frontend (GitHub Pages)
 
@@ -106,7 +106,7 @@ Choose one of the following platforms:
 2. Set build command: `pip install -r backend/requirements.txt`
 3. Set run command: `cd backend && gunicorn main:app`
 
-## 🎯 How to Play
+## How to Play
 
 1. **Start the Game**: Enter your name and click "START GAME"
 2. **Make Moves**: Click on empty cells to place your X
@@ -122,7 +122,7 @@ The Perfect Minimax agent uses:
 - **Optimal Play**: Cannot be beaten (only drawn or wins)
 - **Strategic Depth**: Evaluates all possible game states
 
-## 🔧 API Endpoints
+## API Endpoints
 
 ### Health Check
 ```
@@ -177,7 +177,7 @@ Content-Type: application/json
 
 Enable debug mode in the browser console to see API calls and responses.
 
-## 📝 Development
+## Development
 
 ### Adding Features
 

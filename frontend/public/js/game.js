@@ -19,14 +19,14 @@ let isPlayerTurn = true;
 let apiAvailable = true; // Track API availability
 
 // Initialize debug logging
-console.log('🎮 [GAME INIT] Tic-Tac-Toe with Perfect Minimax AI');
-console.log('📦 [CONFIG] API Configuration loaded:');
-console.log('   🌍 Environment:', window.location.hostname.includes('github.io') ? 'Production (GitHub Pages)' : 'Local Development');
-console.log('   📡 Backend URL:', API_CONFIG.getBaseUrl());
-console.log('   🔗 Health Endpoint:', API_CONFIG.getBaseUrl() + API_CONFIG.ENDPOINTS.HEALTH);
-console.log('   🎯 Move Endpoint:', API_CONFIG.getBaseUrl() + API_CONFIG.ENDPOINTS.MOVE);
-console.log('   🤖 AI Agent: Perfect Minimax (backend/agents/perfect_agent.py)');
-console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
+console.log('[GAME INIT] Tic-Tac-Toe with Perfect Minimax AI');
+console.log('[CONFIG] API Configuration loaded:');
+console.log('   Environment:', window.location.hostname.includes('github.io') ? 'Production (GitHub Pages)' : 'Local Development');
+console.log('   Backend URL:', API_CONFIG.getBaseUrl());
+console.log('   Health Endpoint:', API_CONFIG.getBaseUrl() + API_CONFIG.ENDPOINTS.HEALTH);
+console.log('   Move Endpoint:', API_CONFIG.getBaseUrl() + API_CONFIG.ENDPOINTS.MOVE);
+console.log('   AI Agent: Perfect Minimax (backend/agents/perfect_agent.py)');
+console.log('==========================================');
 
 // DOM elements
 const nameEntryScreen = document.getElementById('nameEntryScreen');
@@ -76,10 +76,10 @@ async function getAIMoveFromAPI() {
         const apiBoard = convertBoardToAPI(board);
         const apiUrl = API_CONFIG.getBaseUrl() + API_CONFIG.ENDPOINTS.MOVE;
         
-        console.log('🤖 [AI REQUEST] Calling Perfect Minimax Agent...');
-        console.log('   📡 API URL:', apiUrl);
-        console.log('   📊 Board State:', apiBoard);
-        console.log('   🎮 Player: -1 (AI plays O)');
+        console.log('[AI REQUEST] Calling Perfect Minimax Agent...');
+        console.log('   API URL:', apiUrl);
+        console.log('   Board State:', apiBoard);
+        console.log('   Player: -1 (AI plays O)');
         
         const startTime = performance.now();
         
@@ -98,27 +98,27 @@ async function getAIMoveFromAPI() {
         const responseTime = (endTime - startTime).toFixed(2);
         
         if (!response.ok) {
-            console.error('❌ [API ERROR] Request failed:', response.status, response.statusText);
+            console.error('[API ERROR] Request failed:', response.status, response.statusText);
             throw new Error(`API request failed: ${response.status}`);
         }
         
         const data = await response.json();
         
-        console.log('✅ [AI RESPONSE] Perfect Minimax move received!');
-        console.log('   🎯 AI Move:', data.move);
-        console.log('   📊 Updated Board:', data.board);
-        console.log('   ⏱️  Response Time:', responseTime + 'ms');
-        console.log('   🏆 Game Over:', data.game_over);
+        console.log('[AI RESPONSE] Perfect Minimax move received!');
+        console.log('   AI Move:', data.move);
+        console.log('   Updated Board:', data.board);
+        console.log('   Response Time:', responseTime + 'ms');
+        console.log('   Game Over:', data.game_over);
         if (data.winner !== null) {
-            console.log('   👑 Winner:', data.winner);
+            console.log('   Winner:', data.winner);
         }
-        console.log('   💬 Message:', data.message);
+        console.log('   Message:', data.message);
         
         return data.move;
         
     } catch (error) {
-        console.error('❌ [API ERROR] Failed to connect to backend:', error);
-        console.error('   🔧 Troubleshooting: Check if backend is running at:', API_CONFIG.getBaseUrl());
+        console.error('[API ERROR] Failed to connect to backend:', error);
+        console.error('   Troubleshooting: Check if backend is running at:', API_CONFIG.getBaseUrl());
         apiAvailable = false;
         showSlideMessage('API UNAVAILABLE - USING RANDOM AI', 3000);
         return null;
@@ -129,8 +129,8 @@ async function checkAPIHealth() {
     try {
         const apiUrl = API_CONFIG.getBaseUrl() + API_CONFIG.ENDPOINTS.HEALTH;
         
-        console.log('🏥 [HEALTH CHECK] Testing backend connection...');
-        console.log('   📡 API URL:', apiUrl);
+        console.log('[HEALTH CHECK] Testing backend connection...');
+        console.log('   API URL:', apiUrl);
         
         const startTime = performance.now();
         
@@ -146,19 +146,19 @@ async function checkAPIHealth() {
             const data = await response.json();
             apiAvailable = true;
             
-            console.log('✅ [HEALTH CHECK] Backend is ONLINE!');
-            console.log('   🤖 Agent:', data.agent);
-            console.log('   💬 Message:', data.message);
-            console.log('   ⏱️  Response Time:', responseTime + 'ms');
-            console.log('   🔗 Connected to: backend/agents/perfect_agent.py');
+            console.log('[HEALTH CHECK] Backend is ONLINE!');
+            console.log('   Agent:', data.agent);
+            console.log('   Message:', data.message);
+            console.log('   Response Time:', responseTime + 'ms');
+            console.log('   Connected to: backend/agents/perfect_agent.py');
             
             return true;
         }
     } catch (error) {
-        console.warn('⚠️  [HEALTH CHECK] Backend is OFFLINE');
-        console.warn('   📡 Attempted URL:', API_CONFIG.getBaseUrl() + API_CONFIG.ENDPOINTS.HEALTH);
-        console.warn('   ❌ Error:', error.message);
-        console.warn('   🔄 Fallback: Using random AI moves');
+        console.warn('[HEALTH CHECK] Backend is OFFLINE');
+        console.warn('   Attempted URL:', API_CONFIG.getBaseUrl() + API_CONFIG.ENDPOINTS.HEALTH);
+        console.warn('   Error:', error.message);
+        console.warn('   Fallback: Using random AI moves');
         apiAvailable = false;
     }
     return false;
