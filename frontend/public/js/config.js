@@ -22,7 +22,7 @@ const API_CONFIG = {
             url = this.PRODUCTION_URL;
         }
         
-        console.log(`🌐 Using API URL: ${url}`);
+        console.log(`Using API URL: ${url}`);
         return url;
     },
     
