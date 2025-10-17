@@ -2,6 +2,8 @@
 
 A modern, pixel-art styled Tic-Tac-Toe game featuring an unbeatable AI opponent powered by the Perfect Minimax algorithm. The game is deployed on GitHub Pages with a separate Python API backend.
 
+**[>> Play the Game Now <<](https://xircons.github.io/tictactoe-qlearning/index.html)**
+
 ## Features
 
 - **8-bit Pixel Art Design**: Retro gaming aesthetic with smooth animations
@@ -33,8 +35,8 @@ tictactoe-qlearning/
 
 ## Live Demo
 
-- **Frontend**: [GitHub Pages](https://your-username.github.io/tictactoe-qlearning)
-- **API**: [Backend API](https://your-backend-url.herokuapp.com) (update config.js with your URL)
+- **Frontend**: [Play Game on GitHub Pages](https://xircons.github.io/tictactoe-qlearning/index.html)
+- **API**: [Backend API](https://tictactoe-qlearning.onrender.com)
 
 ## Setup Instructions
 
