@@ -20,8 +20,8 @@ CORS(app, resources={
     r"/api/*": {
         "origins": [
             "https://xircons.github.io",
-            "http://localhost:*",
-            "http://127.0.0.1:*"
+            "http://localhost:5001",
+            "http://127.0.0.1:5001"
         ],
         "methods": ["GET", "POST", "OPTIONS"],
         "allow_headers": ["Content-Type"],
