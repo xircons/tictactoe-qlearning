@@ -1,7 +1,7 @@
 // API Configuration for Tic-Tac-Toe Game
 const API_CONFIG = {
     // Production API URL (update this with your deployed backend URL)
-    PRODUCTION_URL: 'https://your-actual-render-url.onrender.com',
+    PRODUCTION_URL: 'https://tictactoe-qlearning.onrender.com',
     
     // Local development URL
     LOCAL_URL: 'http://localhost:5000',
