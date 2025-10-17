@@ -1,5 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
+:root {
+  /* Backgrounds - Improved contrast and warmth */
+  --bg-body: #0c0303;
+  --bg-screen: #1a1a1a;
+  --bg-container: #2a1f1a;
+  --bg-border: #3d2a1f;
+  
+  /* Text - Better readability */
+  --text-primary: #ffcc66;
+  --text-body: #f8f8f8;
+  --text-secondary: #ffaa55;
+  --text-tertiary: #cc8844;
+  
+  /* Game - Enhanced visibility */
+  --symbol-x: #ff5555;
+  --symbol-o: #ffdd44;
+  --cell-bg-start: #2a1f1a;
+  --cell-bg-end: #1f1510;
+  --cell-border: #f59e0b;
+  --cell-hover: #f59e0b;
+  --cell-active: rgba(255, 136, 68, 0.3);
+  
+  /* Effects - Softer, more pleasant */
+  --glow-primary: rgba(255, 204, 102, 0.4);
+  --shadow-warm: rgba(255, 136, 68, 0.25);
+  --modal-overlay: rgba(13, 6, 4, 0.88);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -12,7 +40,7 @@
 body {
     font-family: 'Press Start 2P', cursive;
     overflow: hidden;
-    background: #0a0620;
+    background: var(--bg-body);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,7 +65,7 @@ body::before {
         radial-gradient(1px 1px at 15% 80%, white, transparent),
         radial-gradient(2px 2px at 70% 25%, white, transparent);
     background-size: 200% 200%;
-    opacity: 0.6;
+    opacity: 0.25;
     pointer-events: none;
 }
 
@@ -68,89 +96,17 @@ body::before {
     position: relative;
     width: 340px;
     height: 680px;
-    background: #2a2a2a;
-    border: 8px solid #1a1a1a;
-    border-radius: 0;
+    background: #0a0a0a;
+    border: 8px solid #0a0a0a;
     box-shadow: 
-        0 0 0 4px #3a3a3a,
-        0 0 0 8px #1a1a1a,
-        0 0 0 12px #0a0a0a,
+        0 0 0 4px #0a0a0a,
         0 20px 60px rgba(0, 0, 0, 0.8);
     z-index: 10;
     overflow: hidden;
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
 }
 
-.phone-container::before {
-    content: '';
-    position: absolute;
-    top: -12px;
-    left: -12px;
-    right: -12px;
-    bottom: -12px;
-    background: 
-        /* Top-left corner - stepped curve (12 steps) */
-        linear-gradient(45deg, transparent 0px, transparent 11px, #1a1a1a 12px),
-        linear-gradient(45deg, transparent 0px, transparent 10px, #1a1a1a 11px),
-        linear-gradient(45deg, transparent 0px, transparent 9px, #1a1a1a 10px),
-        linear-gradient(45deg, transparent 0px, transparent 8px, #1a1a1a 9px),
-        linear-gradient(45deg, transparent 0px, transparent 7px, #1a1a1a 8px),
-        linear-gradient(45deg, transparent 0px, transparent 6px, #1a1a1a 7px),
-        linear-gradient(45deg, transparent 0px, transparent 5px, #1a1a1a 6px),
-        linear-gradient(45deg, transparent 0px, transparent 4px, #1a1a1a 5px),
-        linear-gradient(45deg, transparent 0px, transparent 3px, #1a1a1a 4px),
-        linear-gradient(45deg, transparent 0px, transparent 2px, #1a1a1a 3px),
-        linear-gradient(45deg, transparent 0px, transparent 1px, #1a1a1a 2px),
-        linear-gradient(45deg, transparent 0px, transparent 0px, #1a1a1a 1px),
-        /* Top-right corner - stepped curve (12 steps) */
-        linear-gradient(-45deg, transparent 0px, transparent 11px, #1a1a1a 12px),
-        linear-gradient(-45deg, transparent 0px, transparent 10px, #1a1a1a 11px),
-        linear-gradient(-45deg, transparent 0px, transparent 9px, #1a1a1a 10px),
-        linear-gradient(-45deg, transparent 0px, transparent 8px, #1a1a1a 9px),
-        linear-gradient(-45deg, transparent 0px, transparent 7px, #1a1a1a 8px),
-        linear-gradient(-45deg, transparent 0px, transparent 6px, #1a1a1a 7px),
-        linear-gradient(-45deg, transparent 0px, transparent 5px, #1a1a1a 6px),
-        linear-gradient(-45deg, transparent 0px, transparent 4px, #1a1a1a 5px),
-        linear-gradient(-45deg, transparent 0px, transparent 3px, #1a1a1a 4px),
-        linear-gradient(-45deg, transparent 0px, transparent 2px, #1a1a1a 3px),
-        linear-gradient(-45deg, transparent 0px, transparent 1px, #1a1a1a 2px),
-        linear-gradient(-45deg, transparent 0px, transparent 0px, #1a1a1a 1px),
-        /* Bottom-left corner - stepped curve (12 steps) */
-        linear-gradient(-45deg, transparent 0px, transparent 11px, #1a1a1a 12px),
-        linear-gradient(-45deg, transparent 0px, transparent 10px, #1a1a1a 11px),
-        linear-gradient(-45deg, transparent 0px, transparent 9px, #1a1a1a 10px),
-        linear-gradient(-45deg, transparent 0px, transparent 8px, #1a1a1a 9px),
-        linear-gradient(-45deg, transparent 0px, transparent 7px, #1a1a1a 8px),
-        linear-gradient(-45deg, transparent 0px, transparent 6px, #1a1a1a 7px),
-        linear-gradient(-45deg, transparent 0px, transparent 5px, #1a1a1a 6px),
-        linear-gradient(-45deg, transparent 0px, transparent 4px, #1a1a1a 5px),
-        linear-gradient(-45deg, transparent 0px, transparent 3px, #1a1a1a 4px),
-        linear-gradient(-45deg, transparent 0px, transparent 2px, #1a1a1a 3px),
-        linear-gradient(-45deg, transparent 0px, transparent 1px, #1a1a1a 2px),
-        linear-gradient(-45deg, transparent 0px, transparent 0px, #1a1a1a 1px),
-        /* Bottom-right corner - stepped curve (12 steps) */
-        linear-gradient(45deg, transparent 0px, transparent 11px, #1a1a1a 12px),
-        linear-gradient(45deg, transparent 0px, transparent 10px, #1a1a1a 11px),
-        linear-gradient(45deg, transparent 0px, transparent 9px, #1a1a1a 10px),
-        linear-gradient(45deg, transparent 0px, transparent 8px, #1a1a1a 9px),
-        linear-gradient(45deg, transparent 0px, transparent 7px, #1a1a1a 8px),
-        linear-gradient(45deg, transparent 0px, transparent 6px, #1a1a1a 7px),
-        linear-gradient(45deg, transparent 0px, transparent 5px, #1a1a1a 6px),
-        linear-gradient(45deg, transparent 0px, transparent 4px, #1a1a1a 5px),
-        linear-gradient(45deg, transparent 0px, transparent 3px, #1a1a1a 4px),
-        linear-gradient(45deg, transparent 0px, transparent 2px, #1a1a1a 3px),
-        linear-gradient(45deg, transparent 0px, transparent 1px, #1a1a1a 2px),
-        linear-gradient(45deg, transparent 0px, transparent 0px, #1a1a1a 1px);
-    background-size: 12px 12px;
-    background-repeat: no-repeat;
-    background-position: 
-        0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0,
-        calc(100% - 12px) 0, calc(100% - 12px) 0, calc(100% - 12px) 0, calc(100% - 12px) 0, calc(100% - 12px) 0, calc(100% - 12px) 0, calc(100% - 12px) 0, calc(100% - 12px) 0, calc(100% - 12px) 0, calc(100% - 12px) 0, calc(100% - 12px) 0, calc(100% - 12px) 0,
-        0 calc(100% - 12px), 0 calc(100% - 12px), 0 calc(100% - 12px), 0 calc(100% - 12px), 0 calc(100% - 12px), 0 calc(100% - 12px), 0 calc(100% - 12px), 0 calc(100% - 12px), 0 calc(100% - 12px), 0 calc(100% - 12px), 0 calc(100% - 12px), 0 calc(100% - 12px),
-        calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px);
-    z-index: -1;
+.phone-container.pixel-corners {
+    border-radius: 0;
 }
 
 .phone-notch {
@@ -161,42 +117,26 @@ body::before {
     width: 120px;
     height: 30px;
     background: #0a0a0a;
-    border-radius: 0;
-    border: 2px solid #1a1a1a;
+    border-radius: 0 0 20px 20px;
     z-index: 15;
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
 }
 
-.phone-notch::before {
-    content: '';
-    position: absolute;
-    bottom: -3px;
-    left: -3px;
-    right: -3px;
-    height: 6px;
-    background: 
-        /* Bottom-left corner - stepped curve (6 steps) */
-        linear-gradient(-45deg, transparent 0px, transparent 5px, #1a1a1a 6px),
-        linear-gradient(-45deg, transparent 0px, transparent 4px, #1a1a1a 5px),
-        linear-gradient(-45deg, transparent 0px, transparent 3px, #1a1a1a 4px),
-        linear-gradient(-45deg, transparent 0px, transparent 2px, #1a1a1a 3px),
-        linear-gradient(-45deg, transparent 0px, transparent 1px, #1a1a1a 2px),
-        linear-gradient(-45deg, transparent 0px, transparent 0px, #1a1a1a 1px),
-        /* Bottom-right corner - stepped curve (6 steps) */
-        linear-gradient(45deg, transparent 0px, transparent 5px, #1a1a1a 6px),
-        linear-gradient(45deg, transparent 0px, transparent 4px, #1a1a1a 5px),
-        linear-gradient(45deg, transparent 0px, transparent 3px, #1a1a1a 4px),
-        linear-gradient(45deg, transparent 0px, transparent 2px, #1a1a1a 3px),
-        linear-gradient(45deg, transparent 0px, transparent 1px, #1a1a1a 2px),
-        linear-gradient(45deg, transparent 0px, transparent 0px, #1a1a1a 1px);
-    background-size: 6px 6px;
-    background-repeat: no-repeat;
-    background-position: 
-        0 0, 0 0, 0 0, 0 0, 0 0, 0 0,
-        calc(100% - 6px) 0, calc(100% - 6px) 0, calc(100% - 6px) 0, calc(100% - 6px) 0, calc(100% - 6px) 0, calc(100% - 6px) 0;
-    z-index: -1;
+.phone-notch.pixel-corners {
+    border-radius: 0;
+    clip-path: polygon(
+        0px calc(100% - 4px),
+        4px calc(100% - 4px),
+        4px 100%,
+        calc(100% - 4px) 100%,
+        calc(100% - 4px) calc(100% - 4px),
+        100% calc(100% - 4px),
+        100% 4px,
+        calc(100% - 4px) 4px,
+        calc(100% - 4px) 0px,
+        4px 0px,
+        4px 4px,
+        0px 4px
+    );
 }
 
 .phone-speaker {
@@ -213,24 +153,29 @@ body::before {
 .phone-screen {
     width: 100%;
     height: 100%;
-    background: 
+    background-color: var(--bg-screen);
+    background-image: 
         repeating-linear-gradient(
-            0deg,
-            #667eea 0px,
-            #667eea 2px,
-            #6b7fed 2px,
-            #6b7fed 4px,
-            #7081f0 4px,
-            #7081f0 6px,
-            #764ba2 6px,
-            #764ba2 8px
+            to bottom,
+            transparent 0px,
+            transparent 3px,
+            rgba(255, 170, 85, 0.02) 3px,
+            rgba(255, 170, 85, 0.02) 4px
+        ),
+        radial-gradient(
+            circle at center,
+            rgba(255, 204, 102, 0.05) 0%,
+            transparent 70%
         );
-    background-size: 100% 8px;
     position: relative;
     display: flex;
     flex-direction: column;
     padding: 50px 20px 20px;
     overflow-y: auto;
+}
+
+.phone-screen.pixel-corners {
+    border-radius: 0;
 }
 
 .phone-screen::before {
@@ -273,10 +218,18 @@ body::before {
 }
 
 .welcome-title {
-    font-size: 22px;
-    color: #fff;
-    text-shadow: 4px 4px 0 #000;
-    margin: 20px 0;
+    font-size: 75px;
+    color: #ff9933;
+    text-shadow: 
+        /* Thinner black text border effect */
+        2px 2px 0 #000,
+        -2px -2px 0 #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        /* Additional white highlights */
+        6px 6px 0 rgba(255, 255, 255, 0.8), 
+        8px 8px 0 rgba(255, 255, 255, 0.5);
+    margin: 10px 0px 50px 0px;
     text-align: center;
     line-height: 1.5;
     animation: float 3s ease-in-out infinite;
@@ -295,58 +248,64 @@ body::before {
 }
 
 .input-label {
-    font-size: 9px;
-    color: #ffd700;
+    font-size: 10px;
+    color: var(--text-secondary);
     margin-bottom: 8px;
     display: block;
-    text-shadow: 2px 2px 0 #000;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
 }
 
 .pixel-input {
     width: 100%;
     padding: 12px;
-    background: rgba(0, 0, 0, 0.5);
-    border: 4px solid #fff;
-    box-shadow: inset 0 0 0 2px #000;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    box-shadow: inset 0 0 0 2px #fff;
     font-family: 'Press Start 2P', cursive;
     font-size: 10px;
-    color: #fff;
-    text-shadow: 2px 2px 0 #000;
+    color: #1a1a1a;
+    text-shadow: 1px 1px 0 #fff;
     outline: none;
 }
 
 .pixel-input::placeholder {
-    color: #888;
+    color: #1a1a1a;
+    opacity: 0.8;
 }
 
 .start-btn {
-    padding: 14px 28px;
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
     background: 
         repeating-linear-gradient(
             90deg,
-            #4ade80 0px,
-            #4ade80 4px,
-            #22c55e 4px,
-            #22c55e 8px
+            #f59e0b 0px,
+            #f59e0b 4px,
+            #d97706 4px,
+            #d97706 8px
         );
     color: #fff;
     border: 4px solid #fff;
     box-shadow: 
         inset 0 0 0 2px #000,
-        4px 4px 0 #15803d,
+        4px 4px 0 #92400e,
         4px 4px 0 4px rgba(0, 0, 0, 0.5);
     font-family: 'Press Start 2P', cursive;
     font-size: 11px;
     cursor: pointer;
     transition: all 0.1s;
     text-shadow: 2px 2px 0 #000;
+    width: 92.5%;
+    max-width: 250px;
+    box-sizing: border-box;
 }
 
 .start-btn:hover {
     transform: translate(-2px, -2px);
     box-shadow: 
         inset 0 0 0 2px #000,
-        6px 6px 0 #15803d,
+        6px 6px 0 #92400e,
         6px 6px 0 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -354,7 +313,7 @@ body::before {
     transform: translate(2px, 2px);
     box-shadow: 
         inset 0 0 0 2px #000,
-        2px 2px 0 #15803d,
+        2px 2px 0 #92400e,
         2px 2px 0 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -376,25 +335,32 @@ body::before {
 
 .game-title {
     font-size: 16px;
-    color: #fff;
-    text-shadow: 3px 3px 0 #000;
+    color: var(--text-primary);
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8), 3px 3px 0 rgba(0, 0, 0, 0.5);
     margin-bottom: 10px;
 }
 
 .player-names {
-    font-size: 8px;
-    color: #ffd700;
-    text-shadow: 2px 2px 0 #000;
+    font-size: 10px;
+    color: var(--text-body);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
     margin-bottom: 15px;
 }
 
 .score-board {
-    display: flex;
-    justify-content: space-around;
-    background: rgba(0, 0, 0, 0.4);
-    padding: 10px;
-    border: 4px solid #fff;
-    box-shadow: inset 0 0 0 2px #000, 4px 4px 0 rgba(0, 0, 0, 0.3);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    background: rgba(42, 31, 26, 0.7);
+    padding: 12px;
+    border: 4px solid var(--cell-border);
+    box-shadow: 
+        inset 0 0 0 2px rgba(255, 170, 85, 0.3),
+        inset 0 0 0 4px var(--bg-border),
+        0 0 20px rgba(255, 136, 68, 0.2),
+        6px 6px 0 rgba(0, 0, 0, 0.6);
+    margin: 20px auto;
+    width: 90%;
+    max-width: 320px;
 }
 
 .score-item {
@@ -403,28 +369,29 @@ body::before {
 
 .score-label {
     font-size: 7px;
-    color: #ffd700;
+    color: var(--cell-border);
     margin-bottom: 5px;
-    text-shadow: 2px 2px 0 #000;
+    text-shadow: 1px 1px 0 #1a1a1a;
 }
 
 .score-value {
     font-size: 13px;
-    color: #fff;
-    text-shadow: 2px 2px 0 #000;
+    color: var(--text-body);
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
 }
 
 .game-board {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(42, 31, 26, 0.8);
     padding: 20px;
-    border: 6px solid #fff;
+    border: 4px solid var(--cell-border);
     box-shadow: 
-        inset 0 0 0 3px #000,
-        inset 0 0 0 6px #fff,
-        6px 6px 0 rgba(0, 0, 0, 0.5);
+        inset 0 0 0 2px rgba(255, 170, 85, 0.3),
+        inset 0 0 0 4px var(--bg-border),
+        0 0 20px rgba(255, 136, 68, 0.2),
+        6px 6px 0 rgba(0, 0, 0, 0.6);
     margin: 20px auto;
     width: 90%;
     max-width: 320px;
@@ -433,19 +400,13 @@ body::before {
 
 .cell {
     aspect-ratio: 1;
-    background: 
-        repeating-linear-gradient(
-            45deg,
-            #4a5568 0px,
-            #4a5568 4px,
-            #3d4758 4px,
-            #3d4758 8px
-        );
-    border: 4px solid #cbd5e0;
+    background: linear-gradient(135deg, var(--cell-bg-start) 0%, var(--cell-bg-end) 100%);
+    border: 3px solid var(--cell-border);
     box-shadow: 
-        inset -2px -2px 0 rgba(0, 0, 0, 0.3),
-        inset 2px 2px 0 rgba(255, 255, 255, 0.1),
-        2px 2px 0 rgba(0, 0, 0, 0.2);
+        inset -1px -1px 0 rgba(0, 0, 0, 0.4),
+        inset 1px 1px 0 rgba(255, 170, 85, 0.2),
+        0 0 10px rgba(255, 136, 68, 0.1),
+        2px 2px 0 rgba(0, 0, 0, 0.5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -456,15 +417,23 @@ body::before {
 }
 
 .cell:hover:not(.taken) {
-    background: 
-        repeating-linear-gradient(
-            45deg,
-            #5a6778 0px,
-            #5a6778 4px,
-            #4d5768 4px,
-            #4d5768 8px
-        );
-        transform: scale(1.1);
+    transform: scale(1.02);
+    box-shadow: 
+        inset -1px -1px 0 rgba(0, 0, 0, 0.5),
+        inset 1px 1px 0 rgba(255, 170, 85, 0.3),
+        0 0 15px rgba(255, 136, 68, 0.3),
+        3px 3px 0 rgba(0, 0, 0, 0.6);
+    border-color: #ffaa55;
+}
+
+.cell:active:not(.taken) {
+    background: var(--cell-active);
+    transform: scale(0.98);
+    box-shadow: 
+        inset 1px 1px 0 rgba(0, 0, 0, 0.6),
+        inset -1px -1px 0 rgba(255, 170, 85, 0.1),
+        0 0 5px rgba(255, 136, 68, 0.2),
+        1px 1px 0 rgba(0, 0, 0, 0.4);
 }
 
 .cell.taken {
@@ -473,10 +442,9 @@ body::before {
 }
 
 .cell-content {
-    color: #fff;
-    text-shadow: 3px 3px 0 #000;
+    color: var(--text-body);
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.8), 3px 3px 0 rgba(0, 0, 0, 0.5);
     animation: pop 0.3s ease;
-    filter: drop-shadow(0 0 8px currentColor);
     width: 100%;
     height: 100%;
     display: flex;
@@ -491,6 +459,24 @@ body::before {
     left: 1px;
 }
 
+.cell-content.x {
+    color: var(--symbol-x);
+    text-shadow: 
+        0 0 10px var(--symbol-x),
+        0 0 20px rgba(255, 85, 85, 0.5),
+        2px 2px 0 rgba(0, 0, 0, 0.9);
+    filter: drop-shadow(0 0 5px var(--symbol-x));
+}
+
+.cell-content.o {
+    color: var(--symbol-o);
+    text-shadow: 
+        0 0 10px var(--symbol-o),
+        0 0 20px rgba(255, 221, 68, 0.5),
+        2px 2px 0 rgba(0, 0, 0, 0.9);
+    filter: drop-shadow(0 0 5px var(--symbol-o));
+}
+
 @keyframes pop {
     0% { transform: scale(0); }
     50% { transform: scale(1.3); }
@@ -499,31 +485,30 @@ body::before {
 
 .game-status {
     text-align: center;
-    margin-top: 15px;
     font-size: 9px;
-    color: #fff;
+    color: var(--text-body);
     min-height: 25px;
-    text-shadow: 2px 2px 0 #000;
+    text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.8);
     line-height: 1.4;
 }
 
 .reset-btn {
     display: block;
-    margin: 15px auto 0;
+    margin: 0 auto 0;
     padding: 10px 20px;
     background: 
         repeating-linear-gradient(
             90deg,
-            #ff6b6b 0px,
-            #ff6b6b 4px,
-            #ff5252 4px,
-            #ff5252 8px
+            #f59e0b 0px,
+            #f59e0b 4px,
+            #d97706 4px,
+            #d97706 8px
         );
     color: #fff;
     border: 4px solid #fff;
     box-shadow: 
         inset 0 0 0 2px #000,
-        4px 4px 0 #c92a2a,
+        4px 4px 0 #92400e,
         4px 4px 0 4px rgba(0, 0, 0, 0.5);
     font-family: 'Press Start 2P', cursive;
     font-size: 9px;
@@ -538,7 +523,7 @@ body::before {
     transform: translate(-2px, -2px);
     box-shadow: 
         inset 0 0 0 2px #000,
-        6px 6px 0 #c92a2a,
+        6px 6px 0 #92400e,
         6px 6px 0 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -546,7 +531,7 @@ body::before {
     transform: translate(2px, 2px);
     box-shadow: 
         inset 0 0 0 2px #000,
-        2px 2px 0 #c92a2a,
+        2px 2px 0 #92400e,
         2px 2px 0 4px rgba(0, 0, 0, 0.5);
 }
 
@@ -599,10 +584,10 @@ body::before {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.3);
-    z-index: 1000;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
     animation: modalFadeIn 0.4s ease;
 }
 
@@ -611,16 +596,18 @@ body::before {
     top: 49%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.95);
-    border: 6px solid #ffd700;
+    background: linear-gradient(135deg, #2a1f1a 0%, #1f1510 100%);
+    border: 4px solid var(--cell-border);
     box-shadow: 
-        inset 0 0 0 3px #000,
-        0 0 50px rgba(255, 215, 0, 0.5);
+        inset 0 0 0 2px rgba(255, 170, 85, 0.3),
+        0 0 30px rgba(255, 136, 68, 0.3),
+        0 0 60px rgba(255, 136, 68, 0.1);
     padding: 30px 20px;
     text-align: center;
-    width: 90%;
-    max-width: 320px;
-    animation: modalPop 0.4s ease;
+    width: 100%;
+    max-width: 305px;
+    animation: modalPop 0.4s ease forwards;
+    opacity: 0;
 }
 
 .win-modal.active {
@@ -632,24 +619,64 @@ body::before {
     100% { opacity: 1; }
 }
 
+.pixel-corners {
+    clip-path: polygon(
+        0px calc(100% - 16px),
+        4px calc(100% - 16px),
+        4px calc(100% - 8px),
+        8px calc(100% - 8px),
+        8px calc(100% - 4px),
+        16px calc(100% - 4px),
+        16px 100%,
+        calc(100% - 16px) 100%,
+        calc(100% - 16px) calc(100% - 4px),
+        calc(100% - 8px) calc(100% - 4px),
+        calc(100% - 8px) calc(100% - 8px),
+        calc(100% - 4px) calc(100% - 8px),
+        calc(100% - 4px) calc(100% - 16px),
+        100% calc(100% - 16px),
+        100% 16px,
+        calc(100% - 4px) 16px,
+        calc(100% - 4px) 8px,
+        calc(100% - 8px) 8px,
+        calc(100% - 8px) 4px,
+        calc(100% - 16px) 4px,
+        calc(100% - 16px) 0px,
+        16px 0px,
+        16px 4px,
+        8px 4px,
+        8px 8px,
+        4px 8px,
+        4px 16px,
+        0px 16px
+    );
+}
+
 @keyframes modalPop {
-    0% { transform: translate(-50%, -50%) scale(0); }
-    60% { transform: translate(-50%, -50%) scale(1.1); }
-    100% { transform: translate(-50%, -50%) scale(1); }
+    0% { 
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0;
+    }
+    60% { 
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 1;
+    }
+    100% { 
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
 }
 
 .win-message {
     font-size: 14px;
-    color: #ffd700;
-    text-shadow: 3px 3px 0 #000;
+    color: var(--text-primary);
+    text-shadow: 
+        0 0 10px var(--text-primary),
+        2px 2px 0 rgba(0, 0, 0, 0.9),
+        4px 4px 0 rgba(0, 0, 0, 0.7);
     margin-bottom: 20px;
     line-height: 1.6;
     animation: glow 2s ease-in-out infinite;
-}
-
-@keyframes glow {
-    0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); }
-    50% { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.9)); }
 }
 
 .play-again-btn {
@@ -657,16 +684,60 @@ body::before {
     background: 
         repeating-linear-gradient(
             90deg,
-            #4ade80 0px,
-            #4ade80 4px,
-            #22c55e 4px,
-            #22c55e 8px
+            #f59e0b 0px,
+            #f59e0b 4px,
+            #d97706 4px,
+            #d97706 8px
         );
     color: #fff;
     border: 4px solid #fff;
     box-shadow: 
         inset 0 0 0 2px #000,
-        4px 4px 0 #15803d;
+        4px 4px 0 #92400e;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    cursor: pointer;
+    text-shadow: 2px 2px 0 #000;
+    transition: all 0.1s;
+    margin: 5px;
+    width: 180px;
+    box-sizing: border-box;
+}
+
+.new-game-btn {
+    background: 
+        repeating-linear-gradient(
+            90deg,
+            #ef4444 0px,
+            #ef4444 4px,
+            #dc2626 4px,
+            #dc2626 8px
+        );
+    box-shadow: 
+        inset 0 0 0 2px #000,
+        4px 4px 0 #991b1b;
+}
+
+@keyframes glow {
+    0%, 100% { filter: drop-shadow(0 0 10px rgba(26, 26, 26, 0.5)); }
+    50% { filter: drop-shadow(0 0 20px rgba(26, 26, 26, 0.9)); }
+}
+
+.play-again-btn {
+    padding: 12px 24px;
+    background: 
+        repeating-linear-gradient(
+            90deg,
+            #f59e0b 0px,
+            #f59e0b 4px,
+            #d97706 4px,
+            #d97706 8px
+        );
+    color: #fff;
+    border: 4px solid #fff;
+    box-shadow: 
+        inset 0 0 0 2px #000,
+        4px 4px 0 #92400e;
     font-family: 'Press Start 2P', cursive;
     font-size: 10px;
     cursor: pointer;
@@ -681,27 +752,27 @@ body::before {
     transform: translate(-2px, -2px);
     box-shadow: 
         inset 0 0 0 2px #000,
-        6px 6px 0 #15803d;
+        6px 6px 0 #92400e;
 }
 
 .new-game-btn {
     background: 
         repeating-linear-gradient(
             90deg,
-            #60a5fa 0px,
-            #60a5fa 4px,
-            #3b82f6 4px,
-            #3b82f6 8px
+            #ef4444 0px,
+            #ef4444 4px,
+            #dc2626 4px,
+            #dc2626 8px
         );
     box-shadow: 
         inset 0 0 0 2px #000,
-        4px 4px 0 #1e40af;
+        4px 4px 0 #991b1b;
 }
 
 .new-game-btn:hover {
     box-shadow: 
         inset 0 0 0 2px #000,
-        6px 6px 0 #1e40af;
+        6px 6px 0 #991b1b;
 }
 
 /* Sliding Message Box */
@@ -711,20 +782,19 @@ body::before {
     left: 50%;
     transform: translateX(-50%);
     background: rgba(0, 0, 0, 0.95);
-    border: 4px solid #ffd700;
+    border: 4px solid var(--cell-border);
     box-shadow: 
         inset 0 0 0 2px #000,
         0 0 20px rgba(255, 215, 0, 0.5);
     padding: 15px 25px;
     font-family: 'Press Start 2P', cursive;
     font-size: 10px;
-    color: #ffd700;
+    color: var(--text-body);
     text-shadow: 2px 2px 0 #000;
     z-index: 1000;
     opacity: 0;
     transition: all 0.5s ease;
     white-space: nowrap;
-    border-radius: 8px;
 }
 
 .slide-message.show {

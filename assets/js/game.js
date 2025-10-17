@@ -74,7 +74,7 @@ function startGame() {
     gameActive = true;
     isPlayerTurn = true;
     currentPlayer = 'X';
-    status.textContent = `${playerNames[currentPlayer]}'S TURN`;
+    // status.textContent = `${playerNames[currentPlayer]}'S TURN`;
     
     showSlideMessage(`GAME STARTED! ${playerName} VS AI`);
 }
@@ -91,7 +91,7 @@ function handleCellClick(e) {
     
     makeMove(index, currentPlayer);
     
-    if (checkWin()) {
+    if (checkWin(currentPlayer)) {
         gameActive = false;
         scores[currentPlayer]++;
         updateScores();
@@ -107,7 +107,7 @@ function handleCellClick(e) {
         // Switch to AI turn
         isPlayerTurn = false;
         currentPlayer = 'O';
-        status.textContent = `${playerNames[currentPlayer]} IS THINKING...`;
+        // status.textContent = `${playerNames[currentPlayer]} IS THINKING...`;
         showSlideMessage('AI IS THINKING...', 1000);
         
         // AI makes move after a short delay
@@ -142,7 +142,7 @@ function makeAIMove() {
     const randomIndex = availableMoves[Math.floor(Math.random() * availableMoves.length)];
     makeMove(randomIndex, 'O');
     
-    if (checkWin()) {
+    if (checkWin('O')) {
         gameActive = false;
         scores.O++;
         updateScores();
@@ -158,21 +158,21 @@ function makeAIMove() {
         // Switch back to player turn
         isPlayerTurn = true;
         currentPlayer = 'X';
-        status.textContent = `${playerNames[currentPlayer]}'S TURN`;
+        // status.textContent = `${playerNames[currentPlayer]}'S TURN`;
         showSlideMessage(`${playerNames[currentPlayer]}'S TURN`, 2000);
     }
 }
 
-function checkWin() {
+function checkWin(player) {
     return winPatterns.some(pattern => {
-        return pattern.every(index => board[index] === currentPlayer);
+        return pattern.every(index => board[index] === player);
     });
 }
 
 function showWinModal(message) {
     winMessage.textContent = message;
     winModal.classList.add('active');
-    status.textContent = message;
+    // status.textContent = message;
 }
 
 function resetGame() {
@@ -180,7 +180,7 @@ function resetGame() {
     currentPlayer = 'X';
     gameActive = true;
     isPlayerTurn = true;
-    status.textContent = `${playerNames[currentPlayer]}'S TURN`;
+    // status.textContent = `${playerNames[currentPlayer]}'S TURN`;
     winModal.classList.remove('active');
     cells.forEach(cell => {
         cell.innerHTML = '';
