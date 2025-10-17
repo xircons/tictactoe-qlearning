@@ -1,0 +1,739 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+body {
+    font-family: 'Press Start 2P', cursive;
+    overflow: hidden;
+    background: #0a0620;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 20% 30%, white, transparent),
+        radial-gradient(2px 2px at 60% 70%, white, transparent),
+        radial-gradient(1px 1px at 50% 50%, white, transparent),
+        radial-gradient(1px 1px at 80% 10%, white, transparent),
+        radial-gradient(2px 2px at 90% 60%, white, transparent),
+        radial-gradient(1px 1px at 33% 70%, white, transparent),
+        radial-gradient(1px 1px at 15% 80%, white, transparent),
+        radial-gradient(2px 2px at 70% 25%, white, transparent);
+    background-size: 200% 200%;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: white;
+    box-shadow: 0 0 0 1px white, 0 0 5px 1px rgba(255, 255, 255, 0.5);
+    animation: twinkle 3s infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+}
+
+.phone-container {
+    position: relative;
+    width: 340px;
+    height: 680px;
+    background: #2a2a2a;
+    border: 8px solid #1a1a1a;
+    border-radius: 0;
+    box-shadow: 
+        0 0 0 4px #3a3a3a,
+        0 0 0 8px #1a1a1a,
+        0 0 0 12px #0a0a0a,
+        0 20px 60px rgba(0, 0, 0, 0.8);
+    z-index: 10;
+    overflow: hidden;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+.phone-container::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    right: -12px;
+    bottom: -12px;
+    background: 
+        /* Top-left corner - stepped curve (12 steps) */
+        linear-gradient(45deg, transparent 0px, transparent 11px, #1a1a1a 12px),
+        linear-gradient(45deg, transparent 0px, transparent 10px, #1a1a1a 11px),
+        linear-gradient(45deg, transparent 0px, transparent 9px, #1a1a1a 10px),
+        linear-gradient(45deg, transparent 0px, transparent 8px, #1a1a1a 9px),
+        linear-gradient(45deg, transparent 0px, transparent 7px, #1a1a1a 8px),
+        linear-gradient(45deg, transparent 0px, transparent 6px, #1a1a1a 7px),
+        linear-gradient(45deg, transparent 0px, transparent 5px, #1a1a1a 6px),
+        linear-gradient(45deg, transparent 0px, transparent 4px, #1a1a1a 5px),
+        linear-gradient(45deg, transparent 0px, transparent 3px, #1a1a1a 4px),
+        linear-gradient(45deg, transparent 0px, transparent 2px, #1a1a1a 3px),
+        linear-gradient(45deg, transparent 0px, transparent 1px, #1a1a1a 2px),
+        linear-gradient(45deg, transparent 0px, transparent 0px, #1a1a1a 1px),
+        /* Top-right corner - stepped curve (12 steps) */
+        linear-gradient(-45deg, transparent 0px, transparent 11px, #1a1a1a 12px),
+        linear-gradient(-45deg, transparent 0px, transparent 10px, #1a1a1a 11px),
+        linear-gradient(-45deg, transparent 0px, transparent 9px, #1a1a1a 10px),
+        linear-gradient(-45deg, transparent 0px, transparent 8px, #1a1a1a 9px),
+        linear-gradient(-45deg, transparent 0px, transparent 7px, #1a1a1a 8px),
+        linear-gradient(-45deg, transparent 0px, transparent 6px, #1a1a1a 7px),
+        linear-gradient(-45deg, transparent 0px, transparent 5px, #1a1a1a 6px),
+        linear-gradient(-45deg, transparent 0px, transparent 4px, #1a1a1a 5px),
+        linear-gradient(-45deg, transparent 0px, transparent 3px, #1a1a1a 4px),
+        linear-gradient(-45deg, transparent 0px, transparent 2px, #1a1a1a 3px),
+        linear-gradient(-45deg, transparent 0px, transparent 1px, #1a1a1a 2px),
+        linear-gradient(-45deg, transparent 0px, transparent 0px, #1a1a1a 1px),
+        /* Bottom-left corner - stepped curve (12 steps) */
+        linear-gradient(-45deg, transparent 0px, transparent 11px, #1a1a1a 12px),
+        linear-gradient(-45deg, transparent 0px, transparent 10px, #1a1a1a 11px),
+        linear-gradient(-45deg, transparent 0px, transparent 9px, #1a1a1a 10px),
+        linear-gradient(-45deg, transparent 0px, transparent 8px, #1a1a1a 9px),
+        linear-gradient(-45deg, transparent 0px, transparent 7px, #1a1a1a 8px),
+        linear-gradient(-45deg, transparent 0px, transparent 6px, #1a1a1a 7px),
+        linear-gradient(-45deg, transparent 0px, transparent 5px, #1a1a1a 6px),
+        linear-gradient(-45deg, transparent 0px, transparent 4px, #1a1a1a 5px),
+        linear-gradient(-45deg, transparent 0px, transparent 3px, #1a1a1a 4px),
+        linear-gradient(-45deg, transparent 0px, transparent 2px, #1a1a1a 3px),
+        linear-gradient(-45deg, transparent 0px, transparent 1px, #1a1a1a 2px),
+        linear-gradient(-45deg, transparent 0px, transparent 0px, #1a1a1a 1px),
+        /* Bottom-right corner - stepped curve (12 steps) */
+        linear-gradient(45deg, transparent 0px, transparent 11px, #1a1a1a 12px),
+        linear-gradient(45deg, transparent 0px, transparent 10px, #1a1a1a 11px),
+        linear-gradient(45deg, transparent 0px, transparent 9px, #1a1a1a 10px),
+        linear-gradient(45deg, transparent 0px, transparent 8px, #1a1a1a 9px),
+        linear-gradient(45deg, transparent 0px, transparent 7px, #1a1a1a 8px),
+        linear-gradient(45deg, transparent 0px, transparent 6px, #1a1a1a 7px),
+        linear-gradient(45deg, transparent 0px, transparent 5px, #1a1a1a 6px),
+        linear-gradient(45deg, transparent 0px, transparent 4px, #1a1a1a 5px),
+        linear-gradient(45deg, transparent 0px, transparent 3px, #1a1a1a 4px),
+        linear-gradient(45deg, transparent 0px, transparent 2px, #1a1a1a 3px),
+        linear-gradient(45deg, transparent 0px, transparent 1px, #1a1a1a 2px),
+        linear-gradient(45deg, transparent 0px, transparent 0px, #1a1a1a 1px);
+    background-size: 12px 12px;
+    background-repeat: no-repeat;
+    background-position: 
+        0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0, 0 0,
+        calc(100% - 12px) 0, calc(100% - 12px) 0, calc(100% - 12px) 0, calc(100% - 12px) 0, calc(100% - 12px) 0, calc(100% - 12px) 0, calc(100% - 12px) 0, calc(100% - 12px) 0, calc(100% - 12px) 0, calc(100% - 12px) 0, calc(100% - 12px) 0, calc(100% - 12px) 0,
+        0 calc(100% - 12px), 0 calc(100% - 12px), 0 calc(100% - 12px), 0 calc(100% - 12px), 0 calc(100% - 12px), 0 calc(100% - 12px), 0 calc(100% - 12px), 0 calc(100% - 12px), 0 calc(100% - 12px), 0 calc(100% - 12px), 0 calc(100% - 12px), 0 calc(100% - 12px),
+        calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px), calc(100% - 12px) calc(100% - 12px);
+    z-index: -1;
+}
+
+.phone-notch {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 30px;
+    background: #0a0a0a;
+    border-radius: 0;
+    border: 2px solid #1a1a1a;
+    z-index: 15;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+}
+
+.phone-notch::before {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: -3px;
+    right: -3px;
+    height: 6px;
+    background: 
+        /* Bottom-left corner - stepped curve (6 steps) */
+        linear-gradient(-45deg, transparent 0px, transparent 5px, #1a1a1a 6px),
+        linear-gradient(-45deg, transparent 0px, transparent 4px, #1a1a1a 5px),
+        linear-gradient(-45deg, transparent 0px, transparent 3px, #1a1a1a 4px),
+        linear-gradient(-45deg, transparent 0px, transparent 2px, #1a1a1a 3px),
+        linear-gradient(-45deg, transparent 0px, transparent 1px, #1a1a1a 2px),
+        linear-gradient(-45deg, transparent 0px, transparent 0px, #1a1a1a 1px),
+        /* Bottom-right corner - stepped curve (6 steps) */
+        linear-gradient(45deg, transparent 0px, transparent 5px, #1a1a1a 6px),
+        linear-gradient(45deg, transparent 0px, transparent 4px, #1a1a1a 5px),
+        linear-gradient(45deg, transparent 0px, transparent 3px, #1a1a1a 4px),
+        linear-gradient(45deg, transparent 0px, transparent 2px, #1a1a1a 3px),
+        linear-gradient(45deg, transparent 0px, transparent 1px, #1a1a1a 2px),
+        linear-gradient(45deg, transparent 0px, transparent 0px, #1a1a1a 1px);
+    background-size: 6px 6px;
+    background-repeat: no-repeat;
+    background-position: 
+        0 0, 0 0, 0 0, 0 0, 0 0, 0 0,
+        calc(100% - 6px) 0, calc(100% - 6px) 0, calc(100% - 6px) 0, calc(100% - 6px) 0, calc(100% - 6px) 0, calc(100% - 6px) 0;
+    z-index: -1;
+}
+
+.phone-speaker {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 4px;
+    background: #333;
+    border-radius: 2px;
+}
+
+.phone-screen {
+    width: 100%;
+    height: 100%;
+    background: 
+        repeating-linear-gradient(
+            0deg,
+            #667eea 0px,
+            #667eea 2px,
+            #6b7fed 2px,
+            #6b7fed 4px,
+            #7081f0 4px,
+            #7081f0 6px,
+            #764ba2 6px,
+            #764ba2 8px
+        );
+    background-size: 100% 8px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 50px 20px 20px;
+    overflow-y: auto;
+}
+
+.phone-screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 4px 4px;
+    pointer-events: none;
+}
+
+/* Name Entry Screen */
+.name-entry-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 20px;
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+    width: 100%;
+    margin-top: -50px;
+}
+
+.name-entry-screen.hidden {
+    display: none;
+}
+
+.welcome-title {
+    font-size: 22px;
+    color: #fff;
+    text-shadow: 4px 4px 0 #000;
+    margin: 20px 0;
+    text-align: center;
+    line-height: 1.5;
+    animation: float 3s ease-in-out infinite;
+    letter-spacing: -1px;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.input-group {
+    width: 100%;
+    max-width: 250px;
+    margin-bottom: 15px;
+}
+
+.input-label {
+    font-size: 9px;
+    color: #ffd700;
+    margin-bottom: 8px;
+    display: block;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.pixel-input {
+    width: 100%;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 4px solid #fff;
+    box-shadow: inset 0 0 0 2px #000;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    color: #fff;
+    text-shadow: 2px 2px 0 #000;
+    outline: none;
+}
+
+.pixel-input::placeholder {
+    color: #888;
+}
+
+.start-btn {
+    padding: 14px 28px;
+    background: 
+        repeating-linear-gradient(
+            90deg,
+            #4ade80 0px,
+            #4ade80 4px,
+            #22c55e 4px,
+            #22c55e 8px
+        );
+    color: #fff;
+    border: 4px solid #fff;
+    box-shadow: 
+        inset 0 0 0 2px #000,
+        4px 4px 0 #15803d,
+        4px 4px 0 4px rgba(0, 0, 0, 0.5);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all 0.1s;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.start-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 
+        inset 0 0 0 2px #000,
+        6px 6px 0 #15803d,
+        6px 6px 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.start-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 
+        inset 0 0 0 2px #000,
+        2px 2px 0 #15803d,
+        2px 2px 0 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Game Screen */
+.game-screen {
+    display: none;
+    flex-direction: column;
+    height: 100%;
+}
+
+.game-screen.active {
+    display: flex;
+    margin-top: 30px;}
+
+.game-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.game-title {
+    font-size: 16px;
+    color: #fff;
+    text-shadow: 3px 3px 0 #000;
+    margin-bottom: 10px;
+}
+
+.player-names {
+    font-size: 8px;
+    color: #ffd700;
+    text-shadow: 2px 2px 0 #000;
+    margin-bottom: 15px;
+}
+
+.score-board {
+    display: flex;
+    justify-content: space-around;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 10px;
+    border: 4px solid #fff;
+    box-shadow: inset 0 0 0 2px #000, 4px 4px 0 rgba(0, 0, 0, 0.3);
+}
+
+.score-item {
+    text-align: center;
+}
+
+.score-label {
+    font-size: 7px;
+    color: #ffd700;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.score-value {
+    font-size: 13px;
+    color: #fff;
+    text-shadow: 2px 2px 0 #000;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border: 6px solid #fff;
+    box-shadow: 
+        inset 0 0 0 3px #000,
+        inset 0 0 0 6px #fff,
+        6px 6px 0 rgba(0, 0, 0, 0.5);
+    margin: 20px auto;
+    width: 90%;
+    max-width: 320px;
+    aspect-ratio: 1;
+}
+
+.cell {
+    aspect-ratio: 1;
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            #4a5568 0px,
+            #4a5568 4px,
+            #3d4758 4px,
+            #3d4758 8px
+        );
+    border: 4px solid #cbd5e0;
+    box-shadow: 
+        inset -2px -2px 0 rgba(0, 0, 0, 0.3),
+        inset 2px 2px 0 rgba(255, 255, 255, 0.1),
+        2px 2px 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    cursor: pointer;
+    transition: all 0.1s;
+    position: relative;
+}
+
+.cell:hover:not(.taken) {
+    background: 
+        repeating-linear-gradient(
+            45deg,
+            #5a6778 0px,
+            #5a6778 4px,
+            #4d5768 4px,
+            #4d5768 8px
+        );
+        transform: scale(1.1);
+}
+
+.cell.taken {
+    cursor: not-allowed;
+    overflow: hidden;
+}
+
+.cell-content {
+    color: #fff;
+    text-shadow: 3px 3px 0 #000;
+    animation: pop 0.3s ease;
+    filter: drop-shadow(0 0 8px currentColor);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: inherit;
+    padding-left: 1px;
+    padding-top: 1px;
+    box-sizing: border-box;
+    position: absolute;
+    top: 1px;
+    left: 1px;
+}
+
+@keyframes pop {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+.game-status {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 9px;
+    color: #fff;
+    min-height: 25px;
+    text-shadow: 2px 2px 0 #000;
+    line-height: 1.4;
+}
+
+.reset-btn {
+    display: block;
+    margin: 15px auto 0;
+    padding: 10px 20px;
+    background: 
+        repeating-linear-gradient(
+            90deg,
+            #ff6b6b 0px,
+            #ff6b6b 4px,
+            #ff5252 4px,
+            #ff5252 8px
+        );
+    color: #fff;
+    border: 4px solid #fff;
+    box-shadow: 
+        inset 0 0 0 2px #000,
+        4px 4px 0 #c92a2a,
+        4px 4px 0 4px rgba(0, 0, 0, 0.5);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 9px;
+    cursor: pointer;
+    transition: all 0.1s;
+    text-shadow: 2px 2px 0 #000;
+    width: 180px;
+    box-sizing: border-box;
+}
+
+.reset-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 
+        inset 0 0 0 2px #000,
+        6px 6px 0 #c92a2a,
+        6px 6px 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.reset-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 
+        inset 0 0 0 2px #000,
+        2px 2px 0 #c92a2a,
+        2px 2px 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.back-btn {
+    display: block;
+    margin: 10px auto 0;
+    padding: 10px 20px;
+    background: 
+        repeating-linear-gradient(
+            90deg,
+            #6b7280 0px,
+            #6b7280 4px,
+            #4b5563 4px,
+            #4b5563 8px
+        );
+    color: #fff;
+    border: 4px solid #fff;
+    box-shadow: 
+        inset 0 0 0 2px #000,
+        4px 4px 0 #374151,
+        4px 4px 0 4px rgba(0, 0, 0, 0.5);
+    font-family: 'Press Start 2P', cursive;
+    font-size: 9px;
+    cursor: pointer;
+    transition: all 0.1s;
+    text-shadow: 2px 2px 0 #000;
+    width: 180px;
+    box-sizing: border-box;
+}
+
+.back-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 
+        inset 0 0 0 2px #000,
+        6px 6px 0 #374151,
+        6px 6px 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.back-btn:active {
+    transform: translate(2px, 2px);
+    box-shadow: 
+        inset 0 0 0 2px #000,
+        2px 2px 0 #374151,
+        2px 2px 0 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Win Modal */
+.win-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    animation: modalFadeIn 0.4s ease;
+}
+
+.win-modal-content {
+    position: absolute;
+    top: 49%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.95);
+    border: 6px solid #ffd700;
+    box-shadow: 
+        inset 0 0 0 3px #000,
+        0 0 50px rgba(255, 215, 0, 0.5);
+    padding: 30px 20px;
+    text-align: center;
+    width: 90%;
+    max-width: 320px;
+    animation: modalPop 0.4s ease;
+}
+
+.win-modal.active {
+    display: block;
+}
+
+@keyframes modalFadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes modalPop {
+    0% { transform: translate(-50%, -50%) scale(0); }
+    60% { transform: translate(-50%, -50%) scale(1.1); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+}
+
+.win-message {
+    font-size: 14px;
+    color: #ffd700;
+    text-shadow: 3px 3px 0 #000;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% { filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.5)); }
+    50% { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.9)); }
+}
+
+.play-again-btn {
+    padding: 12px 24px;
+    background: 
+        repeating-linear-gradient(
+            90deg,
+            #4ade80 0px,
+            #4ade80 4px,
+            #22c55e 4px,
+            #22c55e 8px
+        );
+    color: #fff;
+    border: 4px solid #fff;
+    box-shadow: 
+        inset 0 0 0 2px #000,
+        4px 4px 0 #15803d;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    cursor: pointer;
+    text-shadow: 2px 2px 0 #000;
+    transition: all 0.1s;
+    margin: 5px;
+    width: 180px;
+    box-sizing: border-box;
+}
+
+.play-again-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 
+        inset 0 0 0 2px #000,
+        6px 6px 0 #15803d;
+}
+
+.new-game-btn {
+    background: 
+        repeating-linear-gradient(
+            90deg,
+            #60a5fa 0px,
+            #60a5fa 4px,
+            #3b82f6 4px,
+            #3b82f6 8px
+        );
+    box-shadow: 
+        inset 0 0 0 2px #000,
+        4px 4px 0 #1e40af;
+}
+
+.new-game-btn:hover {
+    box-shadow: 
+        inset 0 0 0 2px #000,
+        6px 6px 0 #1e40af;
+}
+
+/* Sliding Message Box */
+.slide-message {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.95);
+    border: 4px solid #ffd700;
+    box-shadow: 
+        inset 0 0 0 2px #000,
+        0 0 20px rgba(255, 215, 0, 0.5);
+    padding: 15px 25px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    color: #ffd700;
+    text-shadow: 2px 2px 0 #000;
+    z-index: 1000;
+    opacity: 0;
+    transition: all 0.5s ease;
+    white-space: nowrap;
+    border-radius: 8px;
+}
+
+.slide-message.show {
+    top: 30px;
+    opacity: 1;
+}
+
+.slide-message.hide {
+    top: -100px;
+    opacity: 0;
+}
+

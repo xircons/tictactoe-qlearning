@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8-Bit Pixel Tic Tac Toe</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <div class="stars" id="stars"></div>
+    <div class="slide-message" id="slideMessage"></div>
+    
+    <div class="phone-container">
+        <div class="phone-notch">
+            <div class="phone-speaker"></div>
+        </div>
+        <div class="phone-screen">
+            <!-- Name Entry Screen -->
+            <div class="name-entry-screen" id="nameEntryScreen">
+                <!-- <div class="welcome-title">TIC-TAC-TOE</div> -->
+                <div class="form-container">
+                    <div>
+                        <label class="input-label">PLAYER NAME</label>
+                        <input type="text" class="pixel-input" id="playerXName" placeholder="ENTER NAME" maxlength="12">
+                    </div>
+                    <button class="start-btn" id="startGameBtn">START GAME</button>
+                </div>
+            </div>
+
+            <!-- Game Screen -->
+            <div class="game-screen" id="gameScreen">
+                <div class="game-header">
+                    <!-- <div class="game-title">TIC-TAC-TOE</div> -->
+                    <div class="player-names" id="playerNamesDisplay"></div>
+                    <div class="score-board">
+                        <div class="score-item">
+                            <div class="score-label" id="labelX">PLAYER X</div>
+                            <div class="score-value" id="scoreX">0</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label">DRAWS</div>
+                            <div class="score-value" id="scoreDraw">0</div>
+                        </div>
+                        <div class="score-item">
+                            <div class="score-label" id="labelO">PLAYER O</div>
+                            <div class="score-value" id="scoreO">0</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="game-board" id="board">
+                    <div class="cell" data-index="0"></div>
+                    <div class="cell" data-index="1"></div>
+                    <div class="cell" data-index="2"></div>
+                    <div class="cell" data-index="3"></div>
+                    <div class="cell" data-index="4"></div>
+                    <div class="cell" data-index="5"></div>
+                    <div class="cell" data-index="6"></div>
+                    <div class="cell" data-index="7"></div>
+                    <div class="cell" data-index="8"></div>
+                </div>
+                
+                <div class="game-status" id="status"></div>
+                <button class="reset-btn" id="resetBtn">RESET GAME</button>
+                <button class="back-btn" id="backBtn">BACK</button>
+
+                <!-- Win Modal -->
+                <div class="win-modal" id="winModal">
+                    <div class="win-modal-content">
+                        <div class="win-message" id="winMessage"></div>
+                        <button class="play-again-btn" id="playAgainBtn">PLAY AGAIN</button>
+                        <button class="play-again-btn new-game-btn" id="newGameBtn">FRESH START</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/game.js"></script>
+</body>
+</html>
+
