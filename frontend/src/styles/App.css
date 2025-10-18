@@ -2,7 +2,7 @@
 
 :root {
   /* Backgrounds - Improved contrast and warmth */
-  --bg-body: #10171f;
+  --bg-body: #0c0303;
   --bg-screen: #1a1a1a;
   --bg-container: #2a1f1a;
   --bg-border: #3d2a1f;
@@ -40,32 +40,12 @@
 body {
     font-family: 'Press Start 2P', cursive;
     overflow: hidden;
-    background-color: var(--bg-body);
+    background: var(--bg-body);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    max-height: 100vh;
     position: relative;
-}
-
-/* Pixel Grid Background */
-#pixel-grid {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: -2;
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: repeat(32, 1fr);
-    grid-template-rows: repeat(32, 1fr);
-}
-
-.pixel {
-    width: 100%;
-    height: 100%;
 }
 
 body::before {
@@ -96,7 +76,6 @@ body::before {
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 5;
 }
 
 .star {
@@ -122,7 +101,7 @@ body::before {
     box-shadow: 
         0 0 0 4px #0a0a0a,
         0 20px 60px rgba(0, 0, 0, 0.8);
-    z-index: 20;
+    z-index: 10;
     overflow: hidden;
 }
 
@@ -255,7 +234,6 @@ body::before {
     line-height: 1.5;
     animation: float 3s ease-in-out infinite;
     letter-spacing: -1px;
-    transition: margin 0.3s ease-in-out;
 }
 
 @keyframes float {
@@ -482,21 +460,17 @@ body::before {
 }
 
 .cell-content.x {
-    color: var(--symbol-x);
-    text-shadow: 
-        0 0 10px var(--symbol-x),
-        0 0 20px rgba(255, 85, 85, 0.5),
-        2px 2px 0 rgba(0, 0, 0, 0.9);
-    filter: drop-shadow(0 0 5px var(--symbol-x));
+    padding-left: 2px;
+    padding-top: 2px;
+    color: white;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.9);
 }
 
 .cell-content.o {
-    color: var(--symbol-o);
-    text-shadow: 
-        0 0 10px var(--symbol-o),
-        0 0 20px rgba(255, 221, 68, 0.5),
-        2px 2px 0 rgba(0, 0, 0, 0.9);
-    filter: drop-shadow(0 0 5px var(--symbol-o));
+    padding-left: 2px;
+    padding-top: 2px;
+    color: white;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.9);
 }
 
 @keyframes pop {
@@ -608,8 +582,8 @@ body::before {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.8);
-    z-index: 99999;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9999;
     animation: modalFadeIn 0.4s ease;
 }
 
@@ -634,11 +608,6 @@ body::before {
 
 .win-modal.active {
     display: block;
-}
-
-.win-modal.active .win-modal-content {
-    opacity: 1 !important;
-    animation: modalPop 0.4s ease forwards;
 }
 
 @keyframes modalFadeIn {
@@ -834,286 +803,158 @@ body::before {
     opacity: 0;
 }
 
-/* Force Mobile Style - Remove Phone Container */
-.phone-container.mobile-style {
-    position: static !important;
-    width: 100% !important;
-    height: 100vh !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    z-index: 20 !important;
-    overflow: visible !important;
-}
-
-.phone-container.mobile-style .phone-notch {
-    display: none !important;
-}
-
-.phone-container.mobile-style .phone-screen {
-    width: 100% !important;
-    height: 100vh !important;
-    background-color: var(--bg-body) !important;
-    background-image: 
-        repeating-linear-gradient(
-            to bottom,
-            transparent 0px,
-            transparent 3px,
-            rgba(255, 170, 85, 0.02) 3px,
-            rgba(255, 170, 85, 0.02) 4px
-        ),
-        radial-gradient(
-            circle at center,
-            rgba(255, 204, 102, 0.05) 0%,
-            transparent 70%
-        ) !important;
-    position: relative !important;
-    display: flex !important;
-    flex-direction: column !important;
-    padding: 20px !important;
-    overflow: hidden !important;
-    border-radius: 0 !important;
-}
-
-.phone-container.mobile-style .phone-screen::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: 
-        radial-gradient(2px 2px at 20% 30%, white, transparent),
-        radial-gradient(2px 2px at 60% 70%, white, transparent),
-        radial-gradient(1px 1px at 50% 50%, white, transparent),
-        radial-gradient(1px 1px at 80% 10%, white, transparent),
-        radial-gradient(2px 2px at 90% 60%, white, transparent),
-        radial-gradient(1px 1px at 33% 70%, white, transparent),
-        radial-gradient(1px 1px at 15% 80%, white, transparent),
-        radial-gradient(2px 2px at 70% 25%, white, transparent);
-    background-size: 200% 200%;
-    opacity: 0.25;
-    pointer-events: none;
-    z-index: 0;
-    animation: twinkle 3s infinite;
-}
-
-.phone-container.mobile-style .game-screen.active {
-    margin-top: 0 !important;
-    justify-content: center !important;
-    align-items: center !important;
-    min-height: 100vh !important;
-    padding: 20px 0 !important;
-}
-
-.phone-container.mobile-style .game-board {
-    width: 85vw !important;
-    max-width: 300px !important;
-    min-width: 250px !important;
-    gap: 6px !important;
-    padding: 12px !important;
-    transition: all 0.3s ease-in-out;
-}
-
-.phone-container.mobile-style .cell {
-    font-size: 35px !important;
-    transition: all 0.2s ease-in-out;
-}
-
-.phone-container.mobile-style .score-board {
-    width: 85vw !important;
-    max-width: 300px !important;
-    min-width: 250px !important;
-    padding: 8px !important;
-    margin: 10px auto !important;
-    transition: all 0.3s ease-in-out;
-}
-
-.phone-container.mobile-style .game-header {
-    margin-bottom: 0 !important;
-}
-
-.phone-container.mobile-style .game-title {
-    font-size: 14px !important;
-}
-
-.phone-container.mobile-style .player-names {
-    font-size: 8px !important;
-    margin-bottom: 10px !important;
-}
-
-.phone-container.mobile-style .game-status {
-    font-size: 8px !important;
-    min-height: 20px !important;
-}
-
-.phone-container.mobile-style .reset-btn, 
-.phone-container.mobile-style .back-btn {
-    font-size: 8px !important;
-    padding: 8px 16px !important;
-    width: 150px !important;
-}
-
-.phone-container.mobile-style .win-modal-content {
-    max-width: 90% !important;
-    margin: 0 20px !important;
-}
-
-.phone-container.mobile-style .slide-message {
-    width: 80vw !important;
-}
-
-/* Ensure stars stay behind all elements on mobile */
+/* Mobile-specific styles */
 @media (max-width: 768px) {
-    .stars {
-        z-index: 5 !important;
-    }
-    
-    .phone-container.mobile-style {
-        z-index: 20 !important;
-    }
-    
-    .phone-container.mobile-style .name-entry-screen,
-    .phone-container.mobile-style .game-screen,
-    .phone-container.mobile-style .welcome-title,
-    .phone-container.mobile-style .form-container,
-    .phone-container.mobile-style .input-group,
-    .phone-container.mobile-style .pixel-input,
-    .phone-container.mobile-style .start-btn {
-        position: relative;
-        z-index: 1;
-    }
-    
-    /* Slide message responsive sizing */
-    .slide-message {
-        width: auto !important;
-        max-width: 90vw !important;
-        padding: 10px 20px !important;
-        font-size: 8px !important;
-        white-space: normal !important;
-        word-wrap: break-word !important;
-        text-align: center !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-    }
-    
-    .slide-message.show {
-        top: 20px !important;
-        transform: translateX(-50%) !important;
-    }
-    
-    .slide-message.hide {
-        top: -100px !important;
-        transform: translateX(-50%) !important;
-    }
-}
-
-/* Mobile Responsive - Remove Phone Container */
-@media (max-width: 768px) {
-    .phone-container {
-        position: static;
-        width: 100%;
-        height: 100vh;
-        background: transparent;
-        border: none;
-        box-shadow: none;
-        z-index: auto;
-        overflow: visible;
-        /* Debug: Add red border to confirm mobile CSS is active */
-        border: 3px solid red !important;
-    }
-    
-    .phone-container.pixel-corners {
-        clip-path: none;
-    }
-    
+    /* Hide phone notch on mobile */
     .phone-notch {
         display: none;
     }
     
-    .phone-screen {
-        width: 100%;
+    /* Make phone container full viewport on mobile */
+    .phone-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
         height: 100vh;
-        background-color: var(--bg-body);
-        background-image: none;
-        position: static;
-        display: flex;
-        flex-direction: column;
-        padding: 20px;
-        overflow-y: auto;
-        border-radius: 0;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        z-index: 1;
+        border-radius: 0 !important;
+        clip-path: none !important;
     }
     
-    .phone-screen.pixel-corners {
-        clip-path: none;
+    /* Make phone screen full viewport on mobile */
+    .phone-screen {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        border-radius: 0 !important;
+        clip-path: none !important;
     }
     
-    .phone-screen::before {
-        display: none;
-    }
-    
+    /* Ensure body takes full viewport and prevent scrolling */
     body {
-        overflow: auto;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        touch-action: none;
     }
     
-    /* Adjust game elements for mobile */
-    .welcome-title {
-        font-size: 60px;
-        margin: 60px 0px 40px 0px;
-    }
-
-    .start-btn {
-        width: 72.5%;
+    /* Disable scrolling on html element */
+    html {
+        overflow: hidden;
+        height: 100%;
+        position: fixed;
+        width: 100%;
     }
     
-    .game-screen.active {
-        margin-top: 0;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        padding: 20px 0;
+    /* Disable touch scrolling and zooming */
+    * {
+        touch-action: none !important;
+        -webkit-overflow-scrolling: touch;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-touch-callout: none;
+        -webkit-tap-highlight-color: transparent;
     }
     
-    .game-board {
-        width: 85%;
-        max-width: 300px;
-        gap: 6px;
-        padding: 12px;
+    /* Additional scrolling prevention */
+    .phone-container,
+    .phone-screen,
+    .name-entry-screen,
+    .game-screen {
+        overflow: hidden !important;
+        -webkit-overflow-scrolling: touch;
     }
     
-    .cell {
-        font-size: 35px;
+    /* Prevent any element from causing scroll */
+    div, section, main, article {
+        overflow: hidden !important;
+    }
+    
+    /* Add margin-top to game-header on mobile */
+    .game-header {
+        margin-top: 10px;
+        margin-bottom: 0;
     }
     
     .score-board {
-        width: 85%;
-        max-width: 300px;
-        padding: 8px;
-    }
-    
-    .game-title {
-        font-size: 14px;
-    }
-    
-    .player-names {
-        font-size: 8px;
         margin-bottom: 10px;
     }
     
-    .game-status {
-        font-size: 8px;
-        min-height: 20px;
-    }
-    
-    .reset-btn, .back-btn {
-        font-size: 8px;
-        padding: 8px 16px;
-        width: 150px;
-    }
-    
+    /* Make win-modal wider on mobile */
     .win-modal-content {
-        max-width: 90%;
-        margin: 0 20px;
+        max-width: 90vw;
+        width: 90vw;
+        padding: 40px 30px;
+    }
+    
+    /* Make slide-message responsive on mobile */
+    .slide-message {
+        width: 90vw;
+        max-width: 90vw;
+        padding: 15px 15px;
+        font-size: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        word-wrap: break-word;
+        white-space: normal;
+    }
+    
+    .slide-message.show {
+        top: 20px;
+    }
+    
+    /* Make start-btn smaller on mobile */
+    .start-btn {
+        width: 75%;
+    }
+    
+    .start-btn:hover {
+        transform: translate(-1px, -1px);
+        box-shadow: 
+            inset 0 0 0 1px #000,
+            4px 4px 0 #92400e,
+            4px 4px 0 3px rgba(0, 0, 0, 0.5);
+    }
+    
+    .start-btn:active {
+        transform: translate(1px, 1px);
+        box-shadow: 
+            inset 0 0 0 1px #000,
+            2px 2px 0 #92400e,
+            2px 2px 0 3px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Make sure game content is visible on mobile */
+    .name-entry-screen,
+    .game-screen {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: 0 !important;
+        clip-path: none !important;
+    }
+    
+    /* Remove any rounded edges and clip-paths from all elements on mobile */
+    * {
+        border-radius: 0 !important;
+        clip-path: none !important;
+    }
+    
+    /* Specifically override pixel-corners class on mobile */
+    .pixel-corners {
+        clip-path: none !important;
+        border-radius: 0 !important;
     }
 }
 
