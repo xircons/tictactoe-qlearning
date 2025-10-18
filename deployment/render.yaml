@@ -1,11 +1,13 @@
 # Render.com deployment configuration
 services:
   - type: web
-    name: tictactoe-api
+    name: tictactoe-qlearning-api
     env: python
     plan: free
     buildCommand: pip install -r requirements.txt
-    startCommand: cd backend && gunicorn main:app --bind 0.0.0.0:$PORT --timeout 30
+    startCommand: cd backend && gunicorn main:app --bind 0.0.0.0:$PORT --timeout 30 --workers 1
     envVars:
       - key: FLASK_ENV
         value: production
+      - key: PORT
+        value: $PORT

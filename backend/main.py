@@ -15,11 +15,16 @@ from agents.perfect_agent import PerfectMinimaxAgent
 from core.tictactoe import TicTacToe
 
 app = Flask(__name__)
-# Configure CORS to allow requests from GitHub Pages and localhost
+# Configure CORS to allow requests from GitHub Pages, localhost, and Render.com
 CORS(app, resources={
     r"/api/*": {
         "origins": [
             "https://xircons.github.io",
+            "https://*.github.io",
+            "http://localhost:3000",
+            "http://localhost:5173",  # Vite default port
+            "http://127.0.0.1:3000",
+            "http://127.0.0.1:5173",  # Vite default port
             "http://localhost:5001",
             "http://127.0.0.1:5001",
             "http://localhost:5500",
@@ -183,4 +188,5 @@ if __name__ == '__main__':
     print("  POST /api/validate - Validate board state")
     
     port = int(os.environ.get('PORT', 5001))
-    app.run(debug=True, host='0.0.0.0', port=port)
+    debug_mode = os.environ.get('FLASK_ENV') != 'production'
+    app.run(debug=debug_mode, host='0.0.0.0', port=port)
