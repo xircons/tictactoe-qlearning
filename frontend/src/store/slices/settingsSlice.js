@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  theme: 'pixel', // 'pixel', 'modern', 'classic'
+  theme: 'arcade', // 'arcade', 'silver-frost', 'neon-cyber'
   soundEnabled: false, // Sound effects disabled by default
   soundVolume: 50, // 0-100
   musicEnabled: false, // Background music disabled by default

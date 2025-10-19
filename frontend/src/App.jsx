@@ -13,12 +13,13 @@ import HistoryPage from './pages/HistoryPage'
 import AboutPage from './pages/AboutPage'
 
 function App() {
-  const { showSlideMessage, slideMessage, animationSpeed } = useSelector((state) => state.settings)
+  const { showSlideMessage, slideMessage, animationSpeed, theme } = useSelector((state) => state.settings)
 
-  // Apply animation speed to body
+  // Apply animation speed and theme to body
   useEffect(() => {
     document.body.className = `animation-speed-${animationSpeed}`
-  }, [animationSpeed])
+    document.body.setAttribute('data-theme', theme)
+  }, [animationSpeed, theme])
 
   // Initialize debug logging and generate stars
   useEffect(() => {

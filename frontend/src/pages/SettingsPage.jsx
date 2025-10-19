@@ -22,24 +22,24 @@ const SettingsPage = () => {
         <div className="setting-section">
           <h2 className="setting-label">THEME</h2>
           <div className="setting-options">
-            <button 
-              className={`setting-btn ${theme === 'pixel' ? 'active' : ''}`}
-              onClick={() => dispatch(setTheme('pixel'))}
-            >
-              PIXEL
-            </button>
-            <button 
-              className={`setting-btn ${theme === 'modern' ? 'active' : ''}`}
-              onClick={() => dispatch(setTheme('modern'))}
-            >
-              MODERN
-            </button>
-            <button 
-              className={`setting-btn ${theme === 'classic' ? 'active' : ''}`}
-              onClick={() => dispatch(setTheme('classic'))}
-            >
-              CLASSIC
-            </button>
+                    <button
+                      className={`setting-btn ${theme === 'arcade' ? 'active' : ''}`}
+                      onClick={() => dispatch(setTheme('arcade'))}
+                    >
+                      ARCADE
+                    </button>
+                    <button
+                      className={`setting-btn ${theme === 'silver-frost' ? 'active' : ''}`}
+                      onClick={() => dispatch(setTheme('silver-frost'))}
+                    >
+                      SILVER FROST
+                    </button>
+                    <button
+                      className={`setting-btn ${theme === 'neon-cyber' ? 'active' : ''}`}
+                      onClick={() => dispatch(setTheme('neon-cyber'))}
+                    >
+                      NEON CYBER
+                    </button>
           </div>
         </div>
         

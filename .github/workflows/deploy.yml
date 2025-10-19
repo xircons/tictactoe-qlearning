@@ -1,22 +1,17 @@
-name: Deploy to GitHub Pages
+name: Deploy Tic-Tac-Toe to GitHub Pages
 
 on:
   push:
     branches: [ main, prototype ]
   pull_request:
     branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -24,68 +19,104 @@ concurrency:
 jobs:
   # Test Backend API
   test-backend:
+    name: Test Backend
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - name: Set up Python 3.13
+        uses: actions/setup-python@v5
         with:
           python-version: '3.13'
+          cache: 'pip'
       
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       
-      - name: Test backend API endpoints
+      - name: Test backend imports and initialization
         run: |
           cd backend
           python -c "
           from main import app
           import json
           
-          print('Testing Flask app imports...')
+          print('✓ Testing Flask app imports...')
           assert app is not None, 'Flask app failed to initialize'
           
-          print('Testing Perfect Minimax agent...')
+          print('✓ Testing Perfect Minimax agent...')
           from agents.perfect_agent import PerfectMinimaxAgent
           agent = PerfectMinimaxAgent()
           assert agent is not None, 'Agent failed to initialize'
           
-          print('Testing game engine...')
+          print('✓ Testing Easy agent...')
+          from agents.easy_agent import EasyAgent
+          easy_agent = EasyAgent()
+          assert easy_agent is not None, 'Easy agent failed to initialize'
+          
+          print('✓ Testing Medium agent...')
+          from agents.medium_agent import MediumAgent
+          medium_agent = MediumAgent()
+          assert medium_agent is not None, 'Medium agent failed to initialize'
+          
+          print('✓ Testing game engine...')
           from core.tictactoe import TicTacToe
           game = TicTacToe()
           assert game is not None, 'Game engine failed to initialize'
           
-          print('All backend tests passed!')
+          print('✅ All backend tests passed!')
           "
       
-      - name: Test Render.com backend connectivity
+      - name: Test Render.com backend API
+        continue-on-error: true
         run: |
           echo "Testing Render.com backend API..."
-          HEALTH_RESPONSE=$(curl -s -w "\n%{http_code}" https://tictactoe-qlearning.onrender.com/api/health)
+          HEALTH_RESPONSE=$(curl -s -w "\n%{http_code}" https://tictactoe-qlearning.onrender.com/api/health || echo "failed\n000")
           HTTP_CODE=$(echo "$HEALTH_RESPONSE" | tail -n1)
           RESPONSE_BODY=$(echo "$HEALTH_RESPONSE" | head -n1)
           
           echo "HTTP Status: $HTTP_CODE"
           echo "Response: $RESPONSE_BODY"
           
-          if [ "$HTTP_CODE" != "200" ]; then
-            echo "Warning: Backend API returned status $HTTP_CODE"
-            echo "Deployment will continue, but backend may need attention"
+          if [ "$HTTP_CODE" = "200" ]; then
+            echo "✅ Backend API is healthy!"
           else
-            echo "Backend API is healthy!"
+            echo "⚠️ Backend API returned status $HTTP_CODE (may be cold start)"
           fi
 
-  # Build job
-  build:
+  # Build React Frontend
+  build-frontend:
+    name: Build Frontend
     runs-on: ubuntu-latest
     needs: test-backend
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: frontend/package-lock.json
+        
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm ci
+        
+      - name: Build React app
+        working-directory: ./frontend
+        run: npm run build
+        env:
+          NODE_ENV: production
+      
+      - name: Verify build output
+        run: |
+          echo "Build directory contents:"
+          ls -la frontend/dist/
+          echo "✅ Frontend build successful!"
         
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -93,24 +124,26 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload root directory (contains index.html)
-          path: '.'
+          path: './frontend/dist'
 
-  # Deployment job
+  # Deploy to GitHub Pages
   deploy:
+    name: Deploy to GitHub Pages
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build
+    needs: build-frontend
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
       
-      - name: Verify deployment
+      - name: Deployment Summary
         run: |
-          echo "GitHub Pages deployed!"
+          echo "🎉 Deployment Complete!"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "Frontend URL: https://xircons.github.io/tictactoe-qlearning/"
           echo "Backend URL: https://tictactoe-qlearning.onrender.com"
-          echo "Game is ready to play!"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "✅ Game is ready to play!"

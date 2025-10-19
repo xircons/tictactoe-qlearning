@@ -7,6 +7,7 @@ import { showSlideMessage, hideSlideMessage, setLastDifficulty, setLastGameMode 
 const HomePage = () => {
   const lastDifficulty = useSelector(state => state.settings.lastDifficulty)
   const lastGameMode = useSelector(state => state.settings.lastGameMode)
+  const theme = useSelector(state => state.settings.theme)
   
   const [playerName, setPlayerName] = useState('')
   const [player2Name, setPlayer2Name] = useState('')
@@ -14,6 +15,19 @@ const HomePage = () => {
   const [gameMode, setGameMode] = useState(lastGameMode)
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  
+  // Get the appropriate logo based on theme
+  const getLogoSrc = () => {
+    switch(theme) {
+      case 'silver-frost':
+        return '/images/tictactoe-silver-frost.png'
+      case 'neon-cyber':
+        return '/images/tictactoe-neon-cyber.png'
+      case 'arcade':
+      default:
+        return '/images/tictactoe.png'
+    }
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -59,7 +73,7 @@ const HomePage = () => {
   return (
     <div className="home-page">
       <div className="welcome-title">
-        <img src="/images/tictactoe.png" alt="TIC TAC TOE" />
+        <img src={getLogoSrc()} alt="TIC TAC TOE" />
       </div>
       
       <div className="form-container">

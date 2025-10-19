@@ -7,7 +7,7 @@ const Layout = ({ children }) => {
   const gameActive = useSelector((state) => state.game.gameActive)
   
   return (
-    <div className="app-layout">
+    <div className={`app-layout ${gameActive ? 'in-game' : ''}`}>
       <Navigation isInGame={gameActive} />
       <div className="page-content">
         {children}
