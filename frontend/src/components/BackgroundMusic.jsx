@@ -105,8 +105,8 @@ const BackgroundMusic = () => {
       loop
       style={{ display: 'none' }}
     >
-      <source src={`./sounds/songs/Street Fighter II Arcade Music - Zangief Stage - CPS1 [TosG0dWQSXk].webm?v=${Date.now()}`} type="audio/webm" />
-      <source src={`./sounds/songs/Street Fighter II Arcade Music - Zangief Stage - CPS1 [TosG0dWQSXk].webm?v=${Date.now()}`} type="audio/mpeg" />
+      <source src="./sounds/songs/Street Fighter II Arcade Music - Zangief Stage - CPS1 [TosG0dWQSXk].webm?v=1.0.0" type="audio/webm" />
+      <source src="./sounds/songs/Street Fighter II Arcade Music - Zangief Stage - CPS1 [TosG0dWQSXk].webm?v=1.0.0" type="audio/mpeg" />
       Your browser does not support the audio element.
     </audio>
   )
