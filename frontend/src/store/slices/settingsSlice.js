@@ -2,9 +2,10 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   theme: 'pixel', // 'pixel', 'modern', 'classic'
-  soundEnabled: true,
+  soundEnabled: false, // Sound effects disabled by default
   soundVolume: 50, // 0-100
-  musicVolume: 25, // 0-100
+  musicEnabled: false, // Background music disabled by default
+  musicVolume: 50, // 0-100
   animationSpeed: 'normal', // 'slow', 'normal', 'fast'
   playerAvatar: 'default',
   showSlideMessage: false,
@@ -23,6 +24,9 @@ const settingsSlice = createSlice({
     setSoundEnabled: (state, action) => {
       state.soundEnabled = action.payload
     },
+    setMusicEnabled: (state, action) => {
+      state.musicEnabled = action.payload
+    },
     setAnimationSpeed: (state, action) => {
       state.animationSpeed = action.payload
     },
@@ -38,6 +42,9 @@ const settingsSlice = createSlice({
     },
     toggleSound: (state) => {
       state.soundEnabled = !state.soundEnabled
+    },
+    toggleMusic: (state) => {
+      state.musicEnabled = !state.musicEnabled
     },
     setSoundVolume: (state, action) => {
       state.soundVolume = action.payload
@@ -57,11 +64,13 @@ const settingsSlice = createSlice({
 export const {
   setTheme,
   setSoundEnabled,
+  setMusicEnabled,
   setAnimationSpeed,
   setPlayerAvatar,
   showSlideMessage,
   hideSlideMessage,
   toggleSound,
+  toggleMusic,
   setSoundVolume,
   setMusicVolume,
   setLastDifficulty,

@@ -33,6 +33,11 @@ const HomePage = () => {
       gameMode 
     }))
     
+    // Play start sound when game begins
+    if (window.gameSounds) {
+      window.gameSounds.playStart()
+    }
+    
     const difficultyText = difficulty.charAt(0).toUpperCase() + difficulty.slice(1)
     const opponent = gameMode === 'ai' ? `${difficultyText} AI` : name2
     dispatch(showSlideMessage(`GAME STARTED! ${name} VS ${opponent}`))
@@ -53,7 +58,9 @@ const HomePage = () => {
 
   return (
     <div className="home-page">
-      <div className="welcome-title">TIC<br />TAC<br />TOE</div>
+      <div className="welcome-title">
+        <img src="/images/tictactoe.png" alt="TIC TAC TOE" />
+      </div>
       
       <div className="form-container">
         <div className="input-group">

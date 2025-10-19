@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux'
 import Layout from './components/Layout'
 import SlideMessage from './components/SlideMessage'
 import AchievementNotification from './components/AchievementNotification'
+import BackgroundMusic from './components/BackgroundMusic'
+import SoundEffects from './components/SoundEffects'
 import HomePage from './pages/HomePage'
 import GamePage from './pages/GamePage'
 import SettingsPage from './pages/SettingsPage'
@@ -37,11 +39,92 @@ function App() {
         starsContainer.appendChild(star)
       }
     }
+
+    // Add click sound to all buttons and navigation elements
+    const addClickSoundsToElements = () => {
+      const buttons = document.querySelectorAll('button')
+      const navigationElements = document.querySelectorAll('.navigation')
+      
+      buttons.forEach(button => {
+        // Remove existing listener to avoid duplicates
+        button.removeEventListener('click', handleButtonClick)
+        button.addEventListener('click', handleButtonClick)
+      })
+      
+      navigationElements.forEach(navElement => {
+        // Remove existing listener to avoid duplicates
+        navElement.removeEventListener('click', handleButtonClick)
+        navElement.addEventListener('click', handleButtonClick)
+      })
+    }
+
+    const handleButtonClick = (e) => {
+      // Play click sound for all button clicks and navigation clicks
+      if (window.gameSounds) {
+        window.gameSounds.playClick()
+      }
+    }
+
+    // Add click sounds to existing elements
+    addClickSoundsToElements()
+
+    // Use MutationObserver to add click sounds to dynamically created elements
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          if (node.nodeType === Node.ELEMENT_NODE) {
+            // Check if the added node is a button
+            if (node.tagName === 'BUTTON') {
+              node.addEventListener('click', handleButtonClick)
+            }
+            // Check if the added node has navigation class
+            if (node.classList && node.classList.contains('navigation')) {
+              node.addEventListener('click', handleButtonClick)
+            }
+            // Check for buttons and navigation elements within the added node
+            const buttons = node.querySelectorAll && node.querySelectorAll('button')
+            const navElements = node.querySelectorAll && node.querySelectorAll('.navigation')
+            if (buttons) {
+              buttons.forEach(button => {
+                button.addEventListener('click', handleButtonClick)
+              })
+            }
+            if (navElements) {
+              navElements.forEach(navElement => {
+                navElement.addEventListener('click', handleButtonClick)
+              })
+            }
+          }
+        })
+      })
+    })
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    })
+
+    // Cleanup
+    return () => {
+      observer.disconnect()
+      const buttons = document.querySelectorAll('button')
+      const navigationElements = document.querySelectorAll('.navigation')
+      
+      buttons.forEach(button => {
+        button.removeEventListener('click', handleButtonClick)
+      })
+      
+      navigationElements.forEach(navElement => {
+        navElement.removeEventListener('click', handleButtonClick)
+      })
+    }
   }, [])
 
   return (
     <>
       <div className="stars" id="stars"></div>
+      <BackgroundMusic />
+      <SoundEffects />
       <SlideMessage 
         message={slideMessage}
         show={showSlideMessage}

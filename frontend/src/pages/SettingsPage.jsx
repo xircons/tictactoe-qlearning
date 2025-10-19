@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setTheme, setSoundEnabled, setAnimationSpeed, setSoundVolume, setMusicVolume } from '../store/slices/settingsSlice'
+import { setTheme, setSoundEnabled, setAnimationSpeed, setSoundVolume, setMusicVolume, setMusicEnabled } from '../store/slices/settingsSlice'
 
 const SettingsPage = () => {
   const dispatch = useDispatch()
   const settings = useSelector((state) => state.settings)
-  const { theme, soundEnabled, animationSpeed } = settings
+  const { theme, soundEnabled, musicEnabled, animationSpeed } = settings
   const soundVolume = settings.soundVolume ?? 70
   const musicVolume = settings.musicVolume ?? 50
 
@@ -75,7 +75,27 @@ const SettingsPage = () => {
                 disabled={!soundEnabled}
               />
             </div>
-            
+          </div>
+        </div>
+        
+        <div className="setting-section">
+          <h2 className="setting-label">BACKGROUND MUSIC</h2>
+          <div className="setting-options">
+            <button 
+              className={`setting-btn ${musicEnabled ? 'active' : ''}`}
+              onClick={() => dispatch(setMusicEnabled(true))}
+            >
+              ON
+            </button>
+            <button 
+              className={`setting-btn ${!musicEnabled ? 'active' : ''}`}
+              onClick={() => dispatch(setMusicEnabled(false))}
+            >
+              OFF
+            </button>
+          </div>
+          
+          <div className="volume-controls">
             <div className="volume-control">
               <label className="volume-label">
                 MUSIC VOLUME: {musicVolume}%
@@ -87,7 +107,7 @@ const SettingsPage = () => {
                 value={musicVolume}
                 onChange={(e) => dispatch(setMusicVolume(Number(e.target.value)))}
                 className="volume-slider"
-                disabled={!soundEnabled}
+                disabled={!musicEnabled}
               />
             </div>
           </div>

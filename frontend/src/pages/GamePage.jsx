@@ -195,7 +195,18 @@ const GamePage = () => {
 
   // Handle cell click
   const handleCellClick = useCallback(async (index) => {
-    if (board[index] !== '' || !gameActive || !isPlayerTurn) return
+    if (board[index] !== '' || !gameActive || !isPlayerTurn) {
+      // Play cant-click sound for taken cells
+      if (window.gameSounds && board[index] !== '') {
+        window.gameSounds.playCantClick()
+      }
+      return
+    }
+    
+    // Play click sound for valid moves
+    if (window.gameSounds) {
+      window.gameSounds.playClick()
+    }
     
     // Make player move
     dispatch(makeMove({ index, player: currentPlayer }))
@@ -261,6 +272,10 @@ const GamePage = () => {
     // Check if AI won
     if (checkWinner(newBoard, 'O')) {
       console.log('[AI] AI wins! Calling handleGameEnd')
+      // Play game over sound when AI wins
+      if (window.gameSounds) {
+        window.gameSounds.playGameOver()
+      }
       setTimeout(() => {
         handleGameEnd('O')
       }, 100)
@@ -285,7 +300,18 @@ const GamePage = () => {
 
   // Handle human vs human mode
   const handleCellClickHuman = useCallback((index) => {
-    if (board[index] !== '' || !gameActive) return
+    if (board[index] !== '' || !gameActive) {
+      // Play cant-click sound for taken cells
+      if (window.gameSounds && board[index] !== '') {
+        window.gameSounds.playCantClick()
+      }
+      return
+    }
+    
+    // Play click sound for valid moves
+    if (window.gameSounds) {
+      window.gameSounds.playClick()
+    }
     
     // Make move for current player
     dispatch(makeMove({ index, player: currentPlayer }))
