@@ -33,7 +33,7 @@ const BackgroundMusic = () => {
   useEffect(() => {
     const audio = audioRef.current
     console.log('[MUSIC DEBUG] Music effect triggered - musicEnabled:', musicEnabled, 'isLoaded:', isLoaded, 'volume:', musicVolume)
-    
+
     if (!audio || !isLoaded) {
       console.log('[MUSIC DEBUG] Music not ready - audio exists:', !!audio, 'isLoaded:', isLoaded)
       return
@@ -43,9 +43,11 @@ const BackgroundMusic = () => {
 
     if (musicEnabled) {
       console.log('[MUSIC DEBUG] Attempting to play music...')
+      // Try to play, but don't show error to user if autoplay is blocked
       audio.play().catch((error) => {
-        console.warn('[MUSIC] Autoplay prevented by browser:', error)
-        // Don't show error to user, just log it
+        console.log('[MUSIC] Autoplay blocked by browser (normal behavior)')
+        // Set a flag to play music on first user interaction
+        window.musicNeedsUserInteraction = true
       })
     } else {
       console.log('[MUSIC DEBUG] Music disabled, pausing...')
@@ -79,23 +81,30 @@ const BackgroundMusic = () => {
     return () => audio.removeEventListener('ended', handleEnded)
   }, [musicEnabled])
 
-  // Handle visibility change - pause when tab is not active
+  // Handle user interaction to start music if autoplay was blocked
   useEffect(() => {
-    const handleVisibilityChange = () => {
-      const audio = audioRef.current
-      if (!audio || !isLoaded) return
-
-      if (document.hidden) {
-        audio.pause()
-      } else if (musicEnabled) {
-        audio.play().catch((error) => {
-          console.warn('[MUSIC] Error resuming music:', error)
-        })
+    const handleUserInteraction = () => {
+      if (window.musicNeedsUserInteraction && musicEnabled) {
+        const audio = audioRef.current
+        if (audio && isLoaded) {
+          audio.play().catch((error) => {
+            console.log('[MUSIC] Still blocked:', error)
+          })
+          window.musicNeedsUserInteraction = false
+        }
       }
     }
 
-    document.addEventListener('visibilitychange', handleVisibilityChange)
-    return () => document.removeEventListener('visibilitychange', handleVisibilityChange)
+    // Listen for any user interaction
+    document.addEventListener('click', handleUserInteraction, { once: true })
+    document.addEventListener('keydown', handleUserInteraction, { once: true })
+    document.addEventListener('touchstart', handleUserInteraction, { once: true })
+
+    return () => {
+      document.removeEventListener('click', handleUserInteraction)
+      document.removeEventListener('keydown', handleUserInteraction)
+      document.removeEventListener('touchstart', handleUserInteraction)
+    }
   }, [musicEnabled, isLoaded])
 
   return (
