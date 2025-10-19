@@ -570,7 +570,7 @@ body[data-theme="neon-cyber"] .cell-content.o {
     0 0 10px rgba(168, 85, 247, 0.8);
 }
 
-body[data-theme="neon-cyber"] img[src*="/icons/"] {
+body[data-theme="neon-cyber"] img[src*="./icons/"] {
   filter: brightness(0) invert(1);
 }
 

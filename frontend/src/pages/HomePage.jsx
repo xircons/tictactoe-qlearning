@@ -20,12 +20,12 @@ const HomePage = () => {
   const getLogoSrc = () => {
     switch(theme) {
       case 'silver-frost':
-        return '/images/tictactoe-silver-frost.png'
+        return './images/tictactoe-silver-frost.png'
       case 'neon-cyber':
-        return '/images/tictactoe-neon-cyber.png'
+        return './images/tictactoe-neon-cyber.png'
       case 'arcade':
       default:
-        return '/images/tictactoe.png'
+        return './images/tictactoe.png'
     }
   }
 

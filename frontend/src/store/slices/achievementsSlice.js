@@ -6,56 +6,56 @@ export const ACHIEVEMENTS = {
     id: 'first_steps',
     name: 'First Steps',
     description: 'Complete your first game',
-    icon: '/icons/one.png',
+    icon: './icons/one.png',
     requirement: { type: 'games_played', count: 1 }
   },
   WINNER: {
     id: 'winner',
     name: 'Winner',
     description: 'Win your first game',
-    icon: '/icons/star.png',
+    icon: './icons/star.png',
     requirement: { type: 'wins', count: 1 }
   },
   DEDICATED: {
     id: 'dedicated',
     name: 'Dedicated',
     description: 'Win 5 games',
-    icon: '/icons/boy.png',
+    icon: './icons/boy.png',
     requirement: { type: 'wins', count: 5 }
   },
   CHAMPION: {
     id: 'champion',
     name: 'Champion',
     description: 'Win 10 games',
-    icon: '/icons/confetti.png',
+    icon: './icons/confetti.png',
     requirement: { type: 'wins', count: 10 }
   },
   UNSTOPPABLE: {
     id: 'unstoppable',
     name: 'Unstoppable',
     description: 'Win 3 games in a row',
-    icon: '/icons/arrowheads.png',
+    icon: './icons/arrowheads.png',
     requirement: { type: 'win_streak', count: 3 }
   },
   CHALLENGER: {
     id: 'challenger',
     name: 'Challenger',
     description: 'Beat Hard AI once',
-    icon: '/icons/alien-pixelated-shape-of-a-digital-game.png',
+    icon: './icons/alien-pixelated-shape-of-a-digital-game.png',
     requirement: { type: 'hard_ai_win', count: 1 }
   },
   MARATHON: {
     id: 'marathon',
     name: 'Marathon',
     description: 'Play 25 games total',
-    icon: '/icons/key.png',
+    icon: './icons/key.png',
     requirement: { type: 'games_played', count: 25 }
   },
   LEGEND: {
     id: 'legend',
     name: 'Legend',
     description: 'Win 25 games',
-    icon: '/icons/light.png',
+    icon: './icons/light.png',
     requirement: { type: 'wins', count: 25 }
   }
 }
