@@ -18,14 +18,15 @@ const HomePage = () => {
   
   // Get the appropriate logo based on theme
   const getLogoSrc = () => {
+    const timestamp = Date.now() // Cache busting
     switch(theme) {
       case 'silver-frost':
-        return './images/tictactoe-silver-frost.png'
+        return `./images/tictactoe-silver-frost.png?v=${timestamp}`
       case 'neon-cyber':
-        return './images/tictactoe-neon-cyber.png'
+        return `./images/tictactoe-neon-cyber.png?v=${timestamp}`
       case 'arcade':
       default:
-        return './images/tictactoe.png'
+        return `./images/tictactoe.png?v=${timestamp}`
     }
   }
 
