@@ -79,19 +79,19 @@ const SoundEffects = () => {
   return (
     <>
       <audio ref={clickSoundRef} preload="auto">
-        <source src="/sounds/sound-effect/click.mp3" type="audio/mpeg" />
+        <source src="./sounds/sound-effect/click.mp3" type="audio/mpeg" />
       </audio>
       
       <audio ref={cantClickSoundRef} preload="auto">
-        <source src="/sounds/sound-effect/cant-click.mp3" type="audio/mpeg" />
+        <source src="./sounds/sound-effect/cant-click.mp3" type="audio/mpeg" />
       </audio>
       
       <audio ref={gameOverSoundRef} preload="auto">
-        <source src="/sounds/sound-effect/game-over.mp3" type="audio/mpeg" />
+        <source src="./sounds/sound-effect/game-over.mp3" type="audio/mpeg" />
       </audio>
       
       <audio ref={startSoundRef} preload="auto">
-        <source src="/sounds/sound-effect/start.mp3" type="audio/mpeg" />
+        <source src="./sounds/sound-effect/start.mp3" type="audio/mpeg" />
       </audio>
     </>
   )
